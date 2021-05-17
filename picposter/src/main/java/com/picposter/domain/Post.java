@@ -21,7 +21,7 @@ public class Post {
     private boolean allowComments;
     @Column(name = "added_date")
     private LocalDateTime addedDate;
-    @Column(name = "order")
+    @Column(name = "postOrder")
     private int order;
     @ManyToOne
     private User poster;
