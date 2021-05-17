@@ -1,7 +1,7 @@
 package com.picposter.api;
 
 import com.picposter.domain.Like;
-import com.picposter.service.LikeServiceAPI;
+import com.picposter.service.api.LikeServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,7 @@
 package com.picposter.api;
 
 import com.picposter.domain.Comment;
-import com.picposter.domain.Post;
-import com.picposter.service.CommentServiceAPI;
+import com.picposter.service.api.CommentServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

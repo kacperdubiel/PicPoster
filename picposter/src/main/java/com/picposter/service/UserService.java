@@ -1,9 +1,8 @@
 package com.picposter.service;
 
-import com.picposter.domain.Post;
 import com.picposter.domain.User;
-import com.picposter.repository.PostDAO;
 import com.picposter.repository.UserDAO;
+import com.picposter.service.api.UserServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -11,10 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service("userService")
-public class UserService implements UserServiceAPI{
+public class UserService implements UserServiceAPI {
     private UserDAO userDAO;
 
     @Autowired

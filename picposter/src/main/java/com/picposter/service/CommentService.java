@@ -6,13 +6,13 @@ import com.picposter.domain.User;
 import com.picposter.repository.CommentDAO;
 import com.picposter.repository.PostDAO;
 import com.picposter.repository.UserDAO;
+import com.picposter.service.api.CommentServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service("commentService")
 public class CommentService implements CommentServiceAPI {
