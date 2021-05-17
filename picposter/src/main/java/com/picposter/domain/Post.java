@@ -106,7 +106,7 @@ public class Post {
         return likes;
     }
 
-    public void setLikes(ArrayList<Like> likes) {
+    public void setLikes(List<Like> likes) {
         this.likes = likes;
     }
 
@@ -114,7 +114,7 @@ public class Post {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 }
