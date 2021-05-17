@@ -11,5 +11,5 @@ public interface PostServiceAPI {
     Post addPost(Post post);
     boolean deletePostById(UUID postId);
     Post getPostById(UUID postId);
-    Post updatePostById(Post updatedPost);
+    Post updatePost(Post updatedPost);
 }

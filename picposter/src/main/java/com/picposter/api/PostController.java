@@ -1,7 +1,6 @@
 package com.picposter.api;
 
 import com.picposter.domain.Post;
-import com.picposter.service.PostService;
 import com.picposter.service.PostServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +16,7 @@ public class PostController {
     private final PostServiceAPI postService;
 
     @Autowired
-    public PostController(@Qualifier("postService") PostService postService){
+    public PostController(@Qualifier("postService") PostServiceAPI postService){
         this.postService = postService;
     }
 
@@ -56,8 +54,8 @@ public class PostController {
     }
 
     @RequestMapping(path = "posts", method = RequestMethod.PUT)
-    public ResponseEntity<Post> updatePostById(Post post){
-        Post postResult = postService.updatePostById(post);
+    public ResponseEntity<Post> updatePost(Post post){
+        Post postResult = postService.updatePost(post);
         if(postResult != null)
             return new ResponseEntity<>(postResult, HttpStatus.OK);
         else

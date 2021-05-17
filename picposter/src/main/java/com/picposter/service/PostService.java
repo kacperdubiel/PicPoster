@@ -1,6 +1,7 @@
 package com.picposter.service;
 
 import com.picposter.domain.Post;
+import com.picposter.domain.User;
 import com.picposter.repository.PostDAO;
 import com.picposter.repository.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service("postService")
 public class PostService implements PostServiceAPI{
@@ -23,10 +23,11 @@ public class PostService implements PostServiceAPI{
 
     @Override
     public List<Post> getUserPosts(UUID userId) {
-        if(!userDAO.findById(userId).isPresent())
+        User user = userDAO.findById(userId).orElse(null);
+        if(user == null)
             return null;
-        List<Post> allPosts = postDAO.findAll();
-        return allPosts.stream().filter(post -> post.getPoster().getId().equals(userId)).collect(Collectors.toList());
+        else
+            return user.getPosts();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class PostService implements PostServiceAPI{
     }
 
     @Override
-    public Post updatePostById(Post updatedPost) {
+    public Post updatePost(Post updatedPost) {
         Post resultPost = postDAO.findById(updatedPost.getId()).orElse(null);
         if(resultPost != null){
             resultPost.setAddedDate(updatedPost.getAddedDate());
