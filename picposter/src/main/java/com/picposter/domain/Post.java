@@ -30,7 +30,9 @@ public class Post {
     @OneToMany (mappedBy = "post")
     private List<Comment> comments;
 
+    public Post(){
 
+    }
     public Post(@JsonProperty("id") UUID id, @JsonProperty ("imagePath") String imagePath,
                 @JsonProperty("description") String description, @JsonProperty("allowComments") boolean allowComments,
                 @JsonProperty("addedDate") LocalDateTime addedDate, @JsonProperty("order") int order,

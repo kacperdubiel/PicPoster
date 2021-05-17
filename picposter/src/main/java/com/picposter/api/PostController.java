@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +24,7 @@ public class PostController {
 
     @RequestMapping(path = "posts", method = RequestMethod.POST)
     public ResponseEntity<Post> addPost(@RequestBody @NonNull Post post){
+        post.setAddedDate(LocalDateTime.now());
         Post postResult = postService.addPost(post);
         return new ResponseEntity<>(postResult, HttpStatus.CREATED);
     }

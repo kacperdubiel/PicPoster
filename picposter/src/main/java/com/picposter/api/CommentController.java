@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class CommentController {
 
     @RequestMapping(path = "comments", method = RequestMethod.POST)
     public ResponseEntity<Comment> addComment(@RequestBody @NonNull Comment comment){
+        comment.setAddedDate(LocalDateTime.now());
         Comment commentResult = commentService.addComment(comment);
         return new ResponseEntity<>(commentResult, HttpStatus.CREATED);
     }

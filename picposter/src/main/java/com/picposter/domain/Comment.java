@@ -20,6 +20,9 @@ public class Comment {
     @ManyToOne
     private User commentator;
 
+    public Comment() {
+    }
+
     public Comment(@JsonProperty("id") UUID id, @JsonProperty("comment") String comment,
                    @JsonProperty("addedDate") LocalDateTime addedDate,
                    @JsonProperty("post") Post post, @JsonProperty("commentator") User commentator){

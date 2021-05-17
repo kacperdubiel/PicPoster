@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RestController
@@ -49,6 +50,7 @@ public class UserController {
 
     @RequestMapping(path = "users", method = RequestMethod.POST)
     public ResponseEntity<User> addUser(@RequestBody @NonNull User user){
+        user.setCreatedDate(LocalDateTime.now());
         User userResult = userService.addUser(user);
         return new ResponseEntity<>(userResult, HttpStatus.CREATED);
     }

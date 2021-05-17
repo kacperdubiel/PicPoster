@@ -18,7 +18,9 @@ public class Like {
     @Column(name = "added_date")
     private LocalDateTime addedDate;
 
+    public Like(){
 
+    }
     public Like(@JsonProperty("id") UUID id, @JsonProperty("post") Post post, @JsonProperty("liker") User liker,
                 @JsonProperty("addedDate") LocalDateTime addedDate){
         this.id = id;

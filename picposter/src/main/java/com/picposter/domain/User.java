@@ -1,4 +1,5 @@
 package com.picposter.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -26,23 +27,31 @@ public class User {
     private String description;
     @Column(name = "profile_image_path")
     private String profileImagePath;
+    @JsonIgnore
     @OneToMany (mappedBy = "poster")
     private List<Post> posts;
+    @JsonIgnore
     @OneToMany (mappedBy = "followed")
     private List<Follow> followers;
+    @JsonIgnore
     @OneToMany (mappedBy = "follower")
     private List<Follow> followings;
+    @JsonIgnore
     @OneToMany (mappedBy = "commentator")
     private List<Comment> comments;
+    @JsonIgnore
     @OneToMany (mappedBy = "liker")
     private List<Like> likes;
+
+    public User() {
+    }
 
     public User(@JsonProperty("id") UUID id,
                 @JsonProperty("login") String login,
                 @JsonProperty("password") String password, @JsonProperty("email") String email,
                 @JsonProperty("lastLoginDate") LocalDateTime lastLoginDate,
                 @JsonProperty("createdDate") LocalDateTime createdDate,
-                @JsonProperty("description") String description, @JsonProperty("profileImagePath") String profileImagePath){
+               @JsonProperty("description") String description, @JsonProperty("profileImagePath") String profileImagePath){
         this.login = login;
         this.password = password;
         this.email = email;

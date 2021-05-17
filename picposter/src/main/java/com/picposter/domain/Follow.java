@@ -18,6 +18,9 @@ public class Follow {
     @Column(name = "follow_date")
     private LocalDateTime followDate;
 
+    public Follow() {
+    }
+
     public Follow(@JsonProperty("id") UUID id, @JsonProperty("follower") User follower, @JsonProperty("followed") User followed,
                   @JsonProperty("followDate") LocalDateTime followDate){
         this.id = id;

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class LikeController {
 
     @RequestMapping(path = "likes", method = RequestMethod.POST)
     public ResponseEntity<Like> addLike(@RequestBody @NonNull Like like){
+        like.setAddedDate(LocalDateTime.now());
         Like likeResult = likeService.addLike(like);
         return new ResponseEntity<>(likeResult, HttpStatus.CREATED);
     }

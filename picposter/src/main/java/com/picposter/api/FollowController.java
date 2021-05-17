@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,6 +51,7 @@ public class FollowController {
 
     @RequestMapping(path = "follows", method = RequestMethod.POST)
     public ResponseEntity<Follow> addFollow(@RequestBody @NonNull Follow follow){
+        follow.setFollowDate(LocalDateTime.now());
         Follow followResult = followService.addFollow(follow);
         return new ResponseEntity<>(followResult, HttpStatus.CREATED);
     }
