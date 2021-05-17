@@ -12,19 +12,19 @@ import java.util.UUID;
 public class User {
     @Id
     private UUID id;
-    //@Column(name = "login")
+    @Column(name = "login")
     private String login;
-   // @Column(name = "password")
+    @Column(name = "password")
     private String password;
-    //@Column(name = "email")
+    @Column(name = "email")
     private String email;
-    //@Column(name = "last_login_date")
+    @Column(name = "last_login_date")
     private LocalDateTime lastLoginDate;
-    //@Column(name = "created_date")
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
-   // @Column(name = "description")
+    @Column(name = "description")
     private String description;
-    //@Column(name = "profile_image_path")
+    @Column(name = "profile_image_path")
     private String profileImagePath;
     @OneToMany (mappedBy = "poster")
     private List<Post> posts;

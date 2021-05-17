@@ -11,9 +11,9 @@ import java.util.UUID;
 public class Comment {
     @Id
     private UUID id;
-    //@Column(name = "comment")
+    @Column(name = "comment")
     private String comment;
-    //@Column(name = "added_date")
+    @Column(name = "added_date")
     private LocalDateTime addedDate;
     @ManyToOne
     private Post post;
