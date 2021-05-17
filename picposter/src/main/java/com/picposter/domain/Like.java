@@ -1,5 +1,6 @@
 package com.picposter.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -11,8 +12,10 @@ import java.util.UUID;
 public class Like {
     @Id
     private UUID id;
+    @JsonIgnore
     @ManyToOne
     private Post post;
+    @JsonIgnore
     @ManyToOne
     private User liker;
     @Column(name = "added_date")

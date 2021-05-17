@@ -1,5 +1,6 @@
 package com.picposter.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -15,8 +16,10 @@ public class Comment {
     private String comment;
     @Column(name = "added_date")
     private LocalDateTime addedDate;
+    @JsonIgnore
     @ManyToOne
     private Post post;
+    @JsonIgnore
     @ManyToOne
     private User commentator;
 
