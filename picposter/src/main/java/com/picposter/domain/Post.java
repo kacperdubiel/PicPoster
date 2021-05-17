@@ -13,15 +13,15 @@ import java.util.UUID;
 public class Post {
     @Id
     private UUID id;
-    //@Column(name = "image_path")
+    @Column(name = "image_path")
     private String imagePath;
-    //@Column(name = "description")
+    @Column(name = "description")
     private String description;
-    //@Column(name = "allow_comments")
+    @Column(name = "allow_comments")
     private boolean allowComments;
-    //@Column(name = "added_date")
+    @Column(name = "added_date")
     private LocalDateTime addedDate;
-    //@Column(name = "order")
+    @Column(name = "order")
     private int order;
     @ManyToOne
     private User poster;

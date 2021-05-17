@@ -15,7 +15,7 @@ public class Like {
     private Post post;
     @ManyToOne
     private User liker;
-    //@Column(name = "added_date")
+    @Column(name = "added_date")
     private LocalDateTime addedDate;
 
 

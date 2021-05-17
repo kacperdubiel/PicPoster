@@ -15,7 +15,7 @@ public class Follow {
     private User follower;
     @ManyToOne
     private User followed;
-    //@Column(name = "follow_date")
+    @Column(name = "follow_date")
     private LocalDateTime followDate;
 
     public Follow(@JsonProperty("id") UUID id, @JsonProperty("follower") User follower, @JsonProperty("followed") User followed,
