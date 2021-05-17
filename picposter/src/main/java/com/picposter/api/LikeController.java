@@ -45,7 +45,7 @@ public class LikeController {
             return new ResponseEntity<>(likesResult, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "comments/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "likes/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> deleteLike(@PathVariable("id") UUID id){
         boolean deleteResult = likeService.deleteLikeById(id);
         if(deleteResult)
