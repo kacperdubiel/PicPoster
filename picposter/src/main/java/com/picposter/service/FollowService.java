@@ -1,21 +1,19 @@
 package com.picposter.service;
 
 import com.picposter.domain.Follow;
-import com.picposter.domain.Post;
-import com.picposter.domain.User;
 import com.picposter.repository.FollowDAO;
 import com.picposter.repository.UserDAO;
+import com.picposter.service.api.FollowServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service("followService")
-public class FollowService implements FollowServiceAPI{
+public class FollowService implements FollowServiceAPI {
     private FollowDAO followDAO;
     private UserDAO userDAO;
 

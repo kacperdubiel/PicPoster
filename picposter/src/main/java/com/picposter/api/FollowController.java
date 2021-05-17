@@ -1,8 +1,7 @@
 package com.picposter.api;
 
 import com.picposter.domain.Follow;
-import com.picposter.domain.User;
-import com.picposter.service.FollowServiceAPI;
+import com.picposter.service.api.FollowServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

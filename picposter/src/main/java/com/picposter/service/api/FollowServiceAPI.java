@@ -1,4 +1,4 @@
-package com.picposter.service;
+package com.picposter.service.api;
 
 import com.picposter.domain.Follow;
 import com.picposter.domain.User;
