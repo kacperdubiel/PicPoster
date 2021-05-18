@@ -26,8 +26,10 @@ public class Post {
     private int order;
     @ManyToOne
     private User poster;
+    @JsonIgnore
     @OneToMany (mappedBy = "post")
     private List<Like> likes;
+    @JsonIgnore
     @OneToMany (mappedBy = "post")
     private List<Comment> comments;
 

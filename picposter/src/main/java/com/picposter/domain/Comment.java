@@ -16,10 +16,8 @@ public class Comment {
     private String comment;
     @Column(name = "added_date")
     private LocalDateTime addedDate;
-    @JsonIgnore
     @ManyToOne
     private Post post;
-    @JsonIgnore
     @ManyToOne
     private User commentator;
 
