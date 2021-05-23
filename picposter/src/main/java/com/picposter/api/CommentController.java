@@ -1,6 +1,7 @@
 package com.picposter.api;
 
 import com.picposter.domain.Comment;
+import com.picposter.domain.Follow;
 import com.picposter.service.api.CommentServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,11 +23,13 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @RequestMapping(path = "comments", method = RequestMethod.POST)
-    public ResponseEntity<Comment> addComment(@RequestBody @NonNull Comment comment){
-        comment.setAddedDate(LocalDateTime.now());
-        Comment commentResult = commentService.addComment(comment);
-        return new ResponseEntity<>(commentResult, HttpStatus.CREATED);
+    @RequestMapping(path = "comments/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Comment> getCommentById(@PathVariable("id") UUID id){
+        Comment commentResult = commentService.getCommentById(id);
+        if(commentResult == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(commentResult, HttpStatus.OK);
     }
 
     @RequestMapping(path = "comments/user/{id}", method = RequestMethod.GET)
@@ -47,13 +50,11 @@ public class CommentController {
             return new ResponseEntity<>(commentsResult, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "comments/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deletePost(@PathVariable("id") UUID id){
-        boolean deleteResult = commentService.deleteCommentById(id);
-        if(deleteResult)
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    @RequestMapping(path = "comments", method = RequestMethod.POST)
+    public ResponseEntity<Comment> addComment(@RequestBody @NonNull Comment comment){
+        comment.setAddedDate(LocalDateTime.now());
+        Comment commentResult = commentService.addComment(comment);
+        return new ResponseEntity<>(commentResult, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "comments", method = RequestMethod.PUT)
@@ -63,6 +64,15 @@ public class CommentController {
             return new ResponseEntity<>(commentResult, HttpStatus.OK);
         else
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(path = "comments/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deletePost(@PathVariable("id") UUID id){
+        boolean deleteResult = commentService.deleteCommentById(id);
+        if(deleteResult)
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
 
 

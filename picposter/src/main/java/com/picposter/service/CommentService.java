@@ -1,6 +1,7 @@
 package com.picposter.service;
 
 import com.picposter.domain.Comment;
+import com.picposter.domain.Follow;
 import com.picposter.domain.Post;
 import com.picposter.domain.User;
 import com.picposter.repository.CommentDAO;
@@ -30,20 +31,35 @@ public class CommentService implements CommentServiceAPI {
     }
 
     @Override
+    public Comment getCommentById(UUID commentId) {
+        return commentDAO.findById(commentId).orElse(null);
+    }
+
+    @Override
+    public List<Comment> getUserComments(UUID userId) {
+        User user = userDAO.findById(userId).orElse(null);
+        if(user == null)
+            return null;
+        else
+            return user.getComments();
+        //return commentDAO.findAll().stream().filter(comment -> comment.getCommentator().getId().equals(userId)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Comment> getPostComments(UUID postId) {
+        Post post = postDAO.findById(postId).orElse(null);
+        if (post == null)
+            return null;
+        else
+            return post.getComments();
+    }
+
+    @Override
     public Comment addComment(Comment comment) {
         comment.setId(UUID.randomUUID());
         while(commentDAO.findById(comment.getId()).isPresent())
             comment.setId(UUID.randomUUID());
         return commentDAO.save(comment);
-    }
-
-    @Override
-    public boolean deleteCommentById(UUID commentId) {
-        if(commentDAO.findById(commentId).isPresent()){
-            commentDAO.deleteById(commentId);
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -60,21 +76,11 @@ public class CommentService implements CommentServiceAPI {
     }
 
     @Override
-    public List<Comment> getUserComments(UUID userId) {
-        User user = userDAO.findById(userId).orElse(null);
-        if(user == null)
-            return null;
-        else
-            return user.getComments();
-            //return commentDAO.findAll().stream().filter(comment -> comment.getCommentator().getId().equals(userId)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Comment> getPostComments(UUID postId) {
-        Post post = postDAO.findById(postId).orElse(null);
-        if (post == null)
-            return null;
-        else
-            return post.getComments();
+    public boolean deleteCommentById(UUID commentId) {
+        if(commentDAO.findById(commentId).isPresent()){
+            commentDAO.deleteById(commentId);
+            return true;
+        }
+        return false;
     }
 }
