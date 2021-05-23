@@ -20,10 +20,12 @@ public class ImageController {
 
     @RequestMapping(path = "upload", method = RequestMethod.POST)
     public ResponseEntity<String> uploadImage(@RequestBody @NonNull MultipartFile imageFile){
-        imageService.saveImage(imageFile);
-
-        return new ResponseEntity<>("Yeaa", HttpStatus.CREATED);
+        // TODO: Better responses?
+        if(imageService.saveImage(imageFile))
+            return new ResponseEntity<>("Image uploaded.", HttpStatus.OK);
+        return new ResponseEntity<>("Error", HttpStatus.NOT_ACCEPTABLE);
     }
+
 
 
 }
