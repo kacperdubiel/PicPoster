@@ -4,6 +4,8 @@ import com.picposter.service.api.ImageServiceAPI;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +27,6 @@ public class ImageService implements ImageServiceAPI {
 
     @Override
     public boolean saveImage(MultipartFile imageFile) {
-
         try {
             if(imageFile == null)
                 return false;
@@ -49,4 +50,18 @@ public class ImageService implements ImageServiceAPI {
         return true;
     }
 
+    @Override
+    public Resource getImage(String filename){
+        try {
+            Path path = Paths.get(FILE_DIR + filename);
+            Resource res = new UrlResource(path.toUri());
+            if(res.exists())
+                return res;
+            else
+                return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
