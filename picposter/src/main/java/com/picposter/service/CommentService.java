@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,10 +57,15 @@ public class CommentService implements CommentServiceAPI {
 
     @Override
     public Comment addComment(Comment comment) {
-        comment.setId(UUID.randomUUID());
-        while(commentDAO.findById(comment.getId()).isPresent())
+        if(comment.getPost().isAllowComments()){
+            comment.setAddedDate(LocalDateTime.now());
             comment.setId(UUID.randomUUID());
-        return commentDAO.save(comment);
+            while(commentDAO.findById(comment.getId()).isPresent())
+                comment.setId(UUID.randomUUID());
+            return commentDAO.save(comment);
+        }
+        else
+            return null;
     }
 
     @Override

@@ -52,9 +52,11 @@ public class CommentController {
 
     @RequestMapping(path = "comments", method = RequestMethod.POST)
     public ResponseEntity<Comment> addComment(@RequestBody @NonNull Comment comment){
-        comment.setAddedDate(LocalDateTime.now());
         Comment commentResult = commentService.addComment(comment);
-        return new ResponseEntity<>(commentResult, HttpStatus.CREATED);
+        if(commentResult != null)
+            return new ResponseEntity<>(commentResult, HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(path = "comments", method = RequestMethod.PUT)
