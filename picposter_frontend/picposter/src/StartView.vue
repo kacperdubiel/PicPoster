@@ -1,8 +1,14 @@
 <template>
-  <div id="start-screen">
-    <h1>PIC POSTER </h1>
-    <login-component></login-component>
-    <register-component></register-component>
+  <div>
+    <h1 id="start-logo">PIC POSTER</h1>
+    <div class="start-view-container">
+      <div class="start-view-component">
+        <login-component></login-component>
+      </div>
+      <div class="start-view-component">
+        <register-component></register-component>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,12 +27,21 @@ export default {
 </script>
 
 <style>
-#start-screen {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #start-logo{
+    color: palevioletred;
+    text-align: center;
+    font-family: fantasy;
+    margin-bottom: 3%;
+    margin-top: 3%;
+  }
+
+  .start-view-component{
+     width: 25%;
+     margin-inline: 5%;
+  }
+
+  .start-view-container{
+    display: flex;
+    justify-content: center;
+  }
 </style>

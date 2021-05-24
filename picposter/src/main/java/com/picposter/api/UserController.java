@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "users", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(User user){
+    public ResponseEntity<User> updateUser(@RequestBody @NonNull User user){
         User userResult = userService.updateUser(user);
         if(userResult != null)
             return new ResponseEntity<>(userResult, HttpStatus.OK);

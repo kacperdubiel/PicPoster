@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import StartView from './StartView.vue'
-import BootstrapVue from 'bootstrap-vue'
+import ProfileView from './ProfileView'
+//import StartView from './StartView.vue'
+//import BootstrapVue from 'bootstrap-vue'
 
 Vue.config.productionTip = false;
-Vue.use(BootstrapVue)
+//Vue.use(BootstrapVue)
 
 new Vue({
-  render: h => h(StartView),
+  render: h => h(ProfileView),
 }).$mount('#app')
