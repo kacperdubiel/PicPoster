@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class PostController {
     private final PostServiceAPI postService;

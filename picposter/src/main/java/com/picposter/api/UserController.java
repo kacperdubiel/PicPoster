@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class UserController {
     private final UserServiceAPI userService;

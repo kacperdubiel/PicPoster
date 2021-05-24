@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class ImageController {
     private final ImageServiceAPI imageService;
