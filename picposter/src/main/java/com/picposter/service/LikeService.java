@@ -1,5 +1,6 @@
 package com.picposter.service;
 
+import com.picposter.domain.Comment;
 import com.picposter.domain.Like;
 import com.picposter.domain.Post;
 import com.picposter.domain.User;
@@ -26,6 +27,11 @@ public class LikeService implements LikeServiceAPI {
         this.userDAO = userDAO;
         this.postDAO = postDAO;
         this.likeDAO = likeDAO;
+    }
+
+    @Override
+    public Like getLikeById(UUID likeId) {
+        return likeDAO.findById(likeId).orElse(null);
     }
 
     @Override

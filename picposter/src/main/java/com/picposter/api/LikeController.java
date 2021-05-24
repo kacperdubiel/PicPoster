@@ -1,5 +1,6 @@
 package com.picposter.api;
 
+import com.picposter.domain.Comment;
 import com.picposter.domain.Like;
 import com.picposter.service.api.LikeServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,15 @@ public class LikeController {
     @Autowired
     public LikeController(@Qualifier("likeService") LikeServiceAPI likeService) {
         this.likeService = likeService;
+    }
+
+    @RequestMapping(path = "likes/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Like> getLikeById(@PathVariable("id") UUID id){
+        Like likeResult = likeService.getLikeById(id);
+        if(likeResult == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(likeResult, HttpStatus.OK);
     }
 
     @RequestMapping(path = "likes", method = RequestMethod.POST)
