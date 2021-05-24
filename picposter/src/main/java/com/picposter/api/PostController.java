@@ -22,20 +22,13 @@ public class PostController {
         this.postService = postService;
     }
 
-    @RequestMapping(path = "posts", method = RequestMethod.POST)
-    public ResponseEntity<Post> addPost(@RequestBody @NonNull Post post){
-        post.setAddedDate(LocalDateTime.now());
-        Post postResult = postService.addPost(post);
-        return new ResponseEntity<>(postResult, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(path = "posts/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deletePost(@PathVariable("id") UUID id){
-        boolean deleteResult = postService.deletePostById(id);
-        if(deleteResult)
-            return new ResponseEntity<>(true, HttpStatus.OK);
+    @RequestMapping(path = "posts/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Post> getPostById(@PathVariable("id") UUID id){
+        Post postResult = postService.getPostById(id);
+        if(postResult == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(postResult, HttpStatus.OK);
     }
 
     @RequestMapping(path = "posts/user/{id}", method = RequestMethod.GET)
@@ -47,13 +40,20 @@ public class PostController {
             return new ResponseEntity<>(postsResult, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "posts/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Post> getPostById(@PathVariable("id") UUID id){
-        Post postResult = postService.getPostById(id);
-        if(postResult == null)
+    @RequestMapping(path = "posts/followed/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> getFollowedPosts(@PathVariable("id") UUID userId){
+        List<Post> postsResult = postService.getFollowedPosts(userId);
+        if(postsResult == null)
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
-            return new ResponseEntity<>(postResult, HttpStatus.OK);
+            return new ResponseEntity<>(postsResult, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "posts", method = RequestMethod.POST)
+    public ResponseEntity<Post> addPost(@RequestBody @NonNull Post post){
+        post.setAddedDate(LocalDateTime.now());
+        Post postResult = postService.addPost(post);
+        return new ResponseEntity<>(postResult, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "posts", method = RequestMethod.PUT)
@@ -63,5 +63,14 @@ public class PostController {
             return new ResponseEntity<>(postResult, HttpStatus.OK);
         else
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(path = "posts/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deletePost(@PathVariable("id") UUID id){
+        boolean deleteResult = postService.deletePostById(id);
+        if(deleteResult)
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
 }

@@ -7,9 +7,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PostServiceAPI {
-    List<Post> getUserPosts(UUID userId);
-    Post addPost(Post post);
-    boolean deletePostById(UUID postId);
     Post getPostById(UUID postId);
+    List<Post> getUserPosts(UUID userId);
+    List<Post> getFollowedPosts(UUID userId);
+    Post addPost(Post post);
     Post updatePost(Post updatedPost);
+    boolean deletePostById(UUID postId);
 }

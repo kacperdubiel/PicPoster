@@ -32,10 +32,10 @@ public class User {
     private List<Post> posts;
     @JsonIgnore
     @OneToMany (mappedBy = "followed")
-    private List<Follow> followers;
+    private List<Follow> followers;   // Users who follow current user
     @JsonIgnore
     @OneToMany (mappedBy = "follower")
-    private List<Follow> followings;
+    private List<Follow> followings;  // Users who are followed by current user
     @JsonIgnore
     @OneToMany (mappedBy = "commentator")
     private List<Comment> comments;
