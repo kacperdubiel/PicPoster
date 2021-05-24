@@ -57,7 +57,8 @@ public class CommentService implements CommentServiceAPI {
 
     @Override
     public Comment addComment(Comment comment) {
-        if(comment.getPost().isAllowComments()){
+        Post post = postDAO.findById(comment.getPost().getId()).orElse(null);
+        if(post != null && post.isAllowComments()){
             comment.setAddedDate(LocalDateTime.now());
             comment.setId(UUID.randomUUID());
             while(commentDAO.findById(comment.getId()).isPresent())
