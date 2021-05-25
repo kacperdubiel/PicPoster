@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import WallPostComponent from './components/WallPostComponent.vue'
-import axios from "axios"
+import WallPostComponent from './components/WallPostComponent.vue';
+import axios from "axios";
 
 export default {
   name: 'WallView',
@@ -40,7 +40,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 4% 20%;
+  margin: 4% 25%;
 }
 
 </style>
