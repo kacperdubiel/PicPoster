@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import WallPostComponent from './components/WallPostComponent.vue';
-import axios from "axios";
+import WallPostComponent from './components/WallPostComponent.vue'
+import axios from "axios"
 
 export default {
   name: 'WallView',
@@ -24,7 +24,7 @@ export default {
   },
   methods:{
     getFollowedPosts(){
-        axios.get('http://localhost:8090/posts/followed/a2661f4c-8a82-4972-811f-817481a20e5a')
+        axios.get('http://localhost:8090/posts/followed/c6e969c7-b747-46e5-b42c-7ddf417ffef2')
         .then(data => {this.followedPosts = data.data}).catch(e => alert(e))
     }
   },
@@ -40,7 +40,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 4% 25%;
+  margin: 4% 20%;
 }
 
 </style>

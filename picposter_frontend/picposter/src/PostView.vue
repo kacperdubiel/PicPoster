@@ -63,7 +63,7 @@ export default {
   },
   methods:{
     getPost(){
-        axios.get('http://localhost:8090/posts/db392ab5-d77d-4b91-9c66-aa14033d6e27')
+        axios.get('http://localhost:8090/posts/1777e8ae-abbe-4ae1-822b-412f627731fd')
         .then(data => {this.post = data.data}).catch(e => alert(e))
     },
       

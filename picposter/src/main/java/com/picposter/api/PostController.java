@@ -58,7 +58,7 @@ public class PostController {
     }
 
     @RequestMapping(path = "posts", method = RequestMethod.PUT)
-    public ResponseEntity<Post> updatePost(Post post){
+    public ResponseEntity<Post> updatePost(@RequestBody @NonNull Post post){
         Post postResult = postService.updatePost(post);
         if(postResult != null)
             return new ResponseEntity<>(postResult, HttpStatus.OK);

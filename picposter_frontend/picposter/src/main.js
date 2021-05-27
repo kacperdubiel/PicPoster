@@ -2,13 +2,15 @@ import Vue from 'vue'
 import ProfileView from './ProfileView'
 import StartView from './StartView'
 import WallView from './WallView'
+import PostView from './PostView'
 //import StartView from './StartView.vue'
 //import BootstrapVue from 'bootstrap-vue'
 
 const routes = {
   '/': StartView,
   '/profile': ProfileView,
-  '/wall' : WallView
+  '/wall' : WallView,
+  '/post' : PostView
 }
 
 Vue.config.productionTip = false;
