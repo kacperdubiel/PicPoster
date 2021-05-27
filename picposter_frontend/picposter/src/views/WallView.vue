@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import WallPostComponent from './components/WallPostComponent.vue'
+import WallPostComponent from '../components/WallPostComponent.vue'
 import axios from "axios"
 
 export default {
@@ -24,7 +24,7 @@ export default {
   },
   methods:{
     getFollowedPosts(){
-        axios.get('http://localhost:8090/posts/followed/c6e969c7-b747-46e5-b42c-7ddf417ffef2')
+        axios.get('http://localhost:8090/posts/followed/' + this.$route.params.userId)
         .then(data => {this.followedPosts = data.data}).catch(e => alert(e))
     }
   },

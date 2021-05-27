@@ -1,9 +1,9 @@
 <template>
   <div id="comment-container">
-    <div id="c-author-img">
+    <div id="c-author-img" class="pt-2">
         <image-component :filename="comment.commentator.profileImagePath" />
     </div>
-    <div id="c-info">
+    <div id="c-info" class="pl-2">
         <div id="c-info-top">
             <div id="c-author">
                 {{ comment.commentator.login }}
@@ -12,7 +12,7 @@
                 {{ format_date(comment.addedDate) }}
             </div>
         </div>
-        <div id="c-info-bottom">
+        <div id="c-comment">
             {{ comment.comment }}
         </div>
     </div>
@@ -25,7 +25,7 @@ import ImageComponent from './ImageComponent.vue'
 import moment from 'moment';
 
 export default {
-  name: 'post-component',
+  name: 'comment-component',
   components: {
     ImageComponent
   },
@@ -36,7 +36,6 @@ export default {
   },
   data(){
     return {
-      user: {}
     }
   },
   methods:{
@@ -56,32 +55,38 @@ export default {
 <style scoped>
   #comment-container {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     padding: 5px 8px 0px 8px;
   }
 
   #c-author-img {
-    flex-grow: 1;
-    max-width: 10%;
-    max-height: 8vh;
-    min-height: 5vh;
-    border-radius: 8px;
-    margin-right: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50px;
+    height: 60px;
   }
 
   #c-author-img > img {
     max-width: 100%;
-    max-height: 8vh;
-    min-height: 5vh;
-    border: solid 1px black;
-    border-radius: 8px;
+    max-height: 100%;
+    border-radius: 6px;
+    -webkit-box-shadow: 1px 1px 3px #888888;
+    -moz-box-shadow:    1px 1px 3px #888888;
+    box-shadow:         1px 1px 3px #888888; 
   }
 
   #c-info {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    width:100%;
+  }
+
+  #c-info-top {
+    display: flex;
     justify-content: space-between;
-    flex-grow: 4;
+    align-items: center;
   }
 
   #c-author{
@@ -92,8 +97,5 @@ export default {
     font-size: 10px;
   }
 
-  #c-info-top {
-    display: flex;
-    justify-content: space-between;
-  }
+  
 </style>

@@ -27,7 +27,7 @@
 
 <script>
 
-import ProfileComponent from './components/ProfileComponent.vue'
+import ProfileComponent from '../components/ProfileComponent.vue'
 import axios from 'axios'
 
 export default {
@@ -44,10 +44,12 @@ export default {
   },
   methods: {
       getUser(){
-        axios.get('http://localhost:8090/users/c6e969c7-b747-46e5-b42c-7ddf417ffef2').then(data => {this.user = data.data}).catch(e => alert(e))
+        axios.get('http://localhost:8090/users/' + this.$route.params.userId)
+        .then(data => {this.user = data.data}).catch(e => alert(e))
       },
       getPosts(){
-        axios.get('http://localhost:8090/posts/user/c6e969c7-b747-46e5-b42c-7ddf417ffef2').then(data => {this.posts = data.data}).catch(e => alert(e))
+        axios.get('http://localhost:8090/posts/user/' + this.$route.params.userId)
+        .then(data => {this.posts = data.data}).catch(e => alert(e))
       },
       getImage(){
             let config = {
