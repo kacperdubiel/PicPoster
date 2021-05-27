@@ -1,5 +1,5 @@
 <template>
-    <div id="wall-post-container">
+    <div id="wall-post-container" class="shadow-box">
       <div id="wp-image">
         <image-component :filename="post.imagePath" />
       </div>
@@ -8,7 +8,7 @@
           <div id="wp-poster-image">
             <image-component :filename="post.poster.profileImagePath" />
           </div>
-          <div>
+          <div id="wp-poster-info">
             <div>
               <span id="wp-poster">{{ post.poster.login }}</span>
               <span id="wp-desc">{{ post.description }}</span>
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div id="wp-bottom-bar-right">
-          <span id="wp-likes">{{ likes.length }}</span>
+          <span id="wp-likes"><likes-counter-component :postId="post.id" /></span>
           <i id="wp-likes-icon" class="fas fa-heart"></i>
         </div>
       </div>
@@ -28,7 +28,7 @@
 
 <script>
 import ImageComponent from './ImageComponent.vue'
-import axios from "axios";
+import LikesCounterComponent from './LikesCounterComponent.vue'
 import moment from 'moment';
 
 export default {
@@ -39,7 +39,8 @@ export default {
       }
   },
   components: {
-    ImageComponent
+    ImageComponent,
+    LikesCounterComponent
   },
   data(){
     return {
@@ -47,27 +48,19 @@ export default {
     }
   },
   methods:{
-    getPostLikes(){
-      axios.get('http://localhost:8090/likes/post/' + this.post.id)
-        .then(data => {this.likes = data.data}).catch(e => alert(e))
-    },
-
-    format_date(value){
+   format_date(value){
         if (value) {
           return moment(String(value)).format('DD/MM/YYYY HH:mm')
         }
     },
   },
   mounted(){
-    this.getPostLikes()
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   #wall-post-container {
-    border: 1px solid black;
     border-radius: 10px;
     margin-bottom: 20px;
   }
@@ -88,7 +81,7 @@ export default {
   #wp-bottom-bar{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     min-height: 50px;
     padding: 10px 10px;
   }
@@ -96,21 +89,29 @@ export default {
   #wp-bottom-bar-left {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
   }
 
   #wp-poster-image {
-    min-width: 50px;
-    max-width: 12%;
-    max-height: 20vh;
-    margin-right: 2%;
+    width: 60px;
+    height: 70px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5px;
   }
   
   #wp-poster-image > img {
     max-width: 100%;
-    max-height: 20vh;
-    border: solid 1px black;
-    border-radius: 10px;
+    max-height: 100%;
+    border-radius: 7px;
+    -webkit-box-shadow: 1px 1px 4px #888888;
+    -moz-box-shadow:    1px 1px 4px #888888;
+    box-shadow:         1px 1px 4px #888888; 
+  }
+
+  #wp-poster-info {
+    width:100%;
   }
 
   #wp-poster {
@@ -126,6 +127,7 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-top: 10px;
   }
 
   #wp-likes {

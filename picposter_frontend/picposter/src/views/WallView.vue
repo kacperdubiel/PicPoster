@@ -40,7 +40,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 4% 20%;
+}
+
+@media (min-width: 768px) { 
+    #wall-container {
+        margin: 4% 20%;
+    }
+
 }
 
 </style>
