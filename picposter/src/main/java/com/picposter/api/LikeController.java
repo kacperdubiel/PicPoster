@@ -2,7 +2,11 @@ package com.picposter.api;
 
 import com.picposter.domain.Comment;
 import com.picposter.domain.Like;
+import com.picposter.domain.Post;
+import com.picposter.domain.User;
 import com.picposter.service.api.LikeServiceAPI;
+import com.picposter.service.api.PostServiceAPI;
+import com.picposter.service.api.UserServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,10 +22,16 @@ import java.util.UUID;
 @RestController
 public class LikeController {
     private final LikeServiceAPI likeService;
+    private final UserServiceAPI userService;
+    private final PostServiceAPI postService;
 
     @Autowired
-    public LikeController(@Qualifier("likeService") LikeServiceAPI likeService) {
+    public LikeController(@Qualifier("likeService") LikeServiceAPI likeService,
+                          @Qualifier("userService") UserServiceAPI userService,
+                          @Qualifier("postService") PostServiceAPI postService) {
         this.likeService = likeService;
+        this.userService = userService;
+        this.postService = postService;
     }
 
     @RequestMapping(path = "likes/{id}", method = RequestMethod.GET)
@@ -44,11 +54,24 @@ public class LikeController {
 
     @RequestMapping(path = "likes/post/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Like>> getPostLikes(@PathVariable("id") UUID postId){
-        List<Like> likesResult =likeService.getPostLikes(postId);
+        List<Like> likesResult = likeService.getPostLikes(postId);
         if(likesResult == null)
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<>(likesResult, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "likes/user/{userId}/post/{postId}", method = RequestMethod.GET)
+    public ResponseEntity<Like> getLikeByLikerAndPost(@PathVariable("userId") UUID userId,
+                                                      @PathVariable("postId") UUID postId){
+        User liker = userService.getUserById(userId);
+        Post post = postService.getPostById(postId);
+
+        Like likeResult = likeService.getLikeByLikerAndPost(liker, post);
+        if(likeResult == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(likeResult, HttpStatus.OK);
     }
 
     @RequestMapping(path = "likes", method = RequestMethod.POST)
