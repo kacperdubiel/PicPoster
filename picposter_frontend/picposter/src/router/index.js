@@ -4,7 +4,7 @@ import StartView from '../views/StartView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import WallView from '../views/WallView.vue'
 import PostView from '../views/PostView.vue'
-import NotFound from '../views/NotFound.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 Vue.use(VueRouter)
 
@@ -31,8 +31,8 @@ const routes = [
   },
   {
     path: '/:catchAll(.*)',
-    name: 'NotFound',
-    component: NotFound
+    name: 'NotFoundView',
+    component: NotFoundView
   }
 ]
 
