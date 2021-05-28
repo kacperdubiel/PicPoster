@@ -1,9 +1,6 @@
 package com.picposter.service;
 
-import com.picposter.domain.Comment;
-import com.picposter.domain.Like;
-import com.picposter.domain.Post;
-import com.picposter.domain.User;
+import com.picposter.domain.*;
 import com.picposter.repository.LikeDAO;
 import com.picposter.repository.PostDAO;
 import com.picposter.repository.UserDAO;
@@ -53,13 +50,8 @@ public class LikeService implements LikeServiceAPI {
     }
 
     @Override
-    public boolean deleteLikeById(UUID likeId) {
-        if(likeDAO.findById(likeId).isPresent()){
-            likeDAO.deleteById(likeId);
-            return true;
-        }
-        else
-            return false;
+    public Like getLikeByLikerAndPost(User liker, Post post) {
+        return likeDAO.findByLikerAndPost(liker, post);
     }
 
     @Override
@@ -68,5 +60,15 @@ public class LikeService implements LikeServiceAPI {
         while(likeDAO.findById(like.getId()).isPresent())
             like.setId(UUID.randomUUID());
         return likeDAO.save(like);
+    }
+
+    @Override
+    public boolean deleteLikeById(UUID likeId) {
+        if(likeDAO.findById(likeId).isPresent()){
+            likeDAO.deleteById(likeId);
+            return true;
+        }
+        else
+            return false;
     }
 }

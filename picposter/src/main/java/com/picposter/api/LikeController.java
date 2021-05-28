@@ -33,13 +33,6 @@ public class LikeController {
             return new ResponseEntity<>(likeResult, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "likes", method = RequestMethod.POST)
-    public ResponseEntity<Like> addLike(@RequestBody @NonNull Like like){
-        like.setAddedDate(LocalDateTime.now());
-        Like likeResult = likeService.addLike(like);
-        return new ResponseEntity<>(likeResult, HttpStatus.CREATED);
-    }
-
     @RequestMapping(path = "likes/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Like>> getUserLikes(@PathVariable("id") UUID userId){
         List<Like> likeResult =likeService.getUserLikes(userId);
@@ -56,6 +49,17 @@ public class LikeController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<>(likesResult, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "likes", method = RequestMethod.POST)
+    public ResponseEntity<Like> addLike(@RequestBody @NonNull Like like){
+        Like duplicate = likeService.getLikeByLikerAndPost(like.getLiker(), like.getPost());
+        if(duplicate != null)
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+
+        like.setAddedDate(LocalDateTime.now());
+        Like likeResult = likeService.addLike(like);
+        return new ResponseEntity<>(likeResult, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "likes/{id}", method = RequestMethod.DELETE)
