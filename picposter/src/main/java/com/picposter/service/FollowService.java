@@ -1,6 +1,7 @@
 package com.picposter.service;
 
 import com.picposter.domain.Follow;
+import com.picposter.domain.User;
 import com.picposter.repository.FollowDAO;
 import com.picposter.repository.UserDAO;
 import com.picposter.service.api.FollowServiceAPI;
@@ -27,7 +28,6 @@ public class FollowService implements FollowServiceAPI {
     public Follow getFollowById(UUID followId) {
         return followDAO.findById(followId).orElse(null);
     }
-
     @Override
     public List<Follow> getFollowsByFollower(UUID followerId) {
         if(!userDAO.findById(followerId).isPresent())
@@ -42,6 +42,11 @@ public class FollowService implements FollowServiceAPI {
             return null;
         List<Follow> allFollows = followDAO.findAll();
         return allFollows.stream().filter(f -> f.getFollowed().getId().equals(followedId)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Follow getFollowByFollowerAndFollowed(User follower, User followed) {
+        return followDAO.findByFollowerAndFollowed(follower, followed);
     }
 
     @Override

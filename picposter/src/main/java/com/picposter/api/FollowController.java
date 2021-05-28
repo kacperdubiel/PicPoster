@@ -1,6 +1,7 @@
 package com.picposter.api;
 
 import com.picposter.domain.Follow;
+import com.picposter.domain.User;
 import com.picposter.service.api.FollowServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,6 +53,16 @@ public class FollowController {
 
     @RequestMapping(path = "follows", method = RequestMethod.POST)
     public ResponseEntity<Follow> addFollow(@RequestBody @NonNull Follow follow){
+        User follower = follow.getFollower();
+        User followed = follow.getFollowed();
+
+        if(follower == null || followed == null || follower.getId().equals(followed.getId()))
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+        Follow duplicate = followService.getFollowByFollowerAndFollowed(follower, followed);
+        if(duplicate != null)
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+
         follow.setFollowDate(LocalDateTime.now());
         Follow followResult = followService.addFollow(follow);
         return new ResponseEntity<>(followResult, HttpStatus.CREATED);
