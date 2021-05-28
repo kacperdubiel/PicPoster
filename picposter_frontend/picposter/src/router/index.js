@@ -4,6 +4,7 @@ import StartView from '../views/StartView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import WallView from '../views/WallView.vue'
 import PostView from '../views/PostView.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/post/:postId',
     name: 'PostView',
     component: PostView
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 
