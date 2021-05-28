@@ -135,7 +135,6 @@ export default {
   }
 
   #wp-likes-icon {
-    color: red;
     font-size: 34px;
   }
 </style>

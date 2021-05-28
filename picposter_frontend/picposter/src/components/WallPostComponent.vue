@@ -19,8 +19,8 @@
           </div>
         </div>
         <div id="wp-bottom-bar-right">
-          <span id="wp-likes"><likes-counter-component :postId="post.id" /></span>
-          <i id="wp-likes-icon" class="fas fa-heart"></i>
+          <span><likes-counter-component :postId="post.id" /></span>
+          <likes-icon-component :userId="userId" :postId="post.id"/>
         </div>
       </div>
     </div>
@@ -29,22 +29,24 @@
 <script>
 import ImageComponent from './ImageComponent.vue'
 import LikesCounterComponent from './LikesCounterComponent.vue'
+import LikesIconComponent from './LikesIconComponent.vue'
 import moment from 'moment';
 
 export default {
   name: 'post-component',
+  components: {
+    ImageComponent,
+    LikesCounterComponent,
+    LikesIconComponent
+  },
   props: {
       post: {
           type: Object
       }
   },
-  components: {
-    ImageComponent,
-    LikesCounterComponent
-  },
   data(){
     return {
-      likes: []
+      userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
     }
   },
   methods:{
@@ -66,7 +68,7 @@ export default {
   }
 
   #wp-image {
-    max-height: 80vh;
+    max-height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,7 +76,7 @@ export default {
 
   #wp-image > img {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 75vh;
     border-radius: 10px 10px 0 0;
   }
 
@@ -82,7 +84,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    min-height: 50px;
+    min-height: 40px;
     padding: 10px 10px;
   }
 
@@ -92,8 +94,8 @@ export default {
   }
 
   #wp-poster-image {
-    width: 60px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     margin-right: 10px;
     display: flex;
     justify-content: center;
@@ -130,14 +132,14 @@ export default {
     padding-top: 10px;
   }
 
-  #wp-likes {
+  #wp-bottom-bar-right span {
     font-weight: bold;
     font-size: 20px;
-    margin-right: 7px;
+    margin-right: 3px;
+    margin-left: 10px;
   }
 
-  #wp-likes-icon {
-    color: red;
-    font-size: 34px;
+  #wp-bottom-bar-right i {
+    font-size: 32px;
   }
 </style>

@@ -6,7 +6,7 @@
 import axios from "axios";
 
 export default {
-  name: 'image-component',
+  name: 'likes-counter-component',
   props: {
       postId: {
         type: String

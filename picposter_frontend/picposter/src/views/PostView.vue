@@ -29,8 +29,8 @@
                 </div>
                 <div id="p-comments-bottom-panel">
                     <div id="p-likes">
-                        <i id="p-likes-icon" class="fas fa-heart"></i>
-                        <span id="p-likes">liczba polubień: <likes-counter-component :postId="post.id" /></span>
+                        <likes-icon-component :userId="userId" :postId="post.id"/>
+                        <span><likes-counter-component :postId="post.id" /></span>
                     </div>
                     <div id="p-add-comment">
                         <add-comment-component />
@@ -44,6 +44,7 @@
 <script>
 import ImageComponent from '../components/ImageComponent.vue'
 import LikesCounterComponent from '../components/LikesCounterComponent.vue'
+import LikesIconComponent from '../components/LikesIconComponent.vue'
 import PostCommentsComponent from '../components/PostCommentsComponent.vue'
 import AddCommentComponent from '../components/AddCommentComponent.vue'
 import axios from "axios"
@@ -54,19 +55,25 @@ export default {
   components: {
     ImageComponent,
     LikesCounterComponent,
+    LikesIconComponent,
     PostCommentsComponent,
     AddCommentComponent
   },
   data(){
     return {
-      post: {}
+        postId: this.$route.params.postId,
+        post: {},
+        isLiked: false,
+        userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
     }
   },
   methods:{
     getPost(){
-        axios.get('http://localhost:8090/posts/' + this.$route.params.postId)
+        axios.get('http://localhost:8090/posts/' + this.postId)
         .then(data => {this.post = data.data}).catch(e => alert(e))
     },
+
+
       
     format_date(value){
         if (value) {
@@ -125,27 +132,28 @@ export default {
 }
 
 #p-author-img {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     width: 70px;
     height: 80px;
+    padding-top: 7px;
 }
 
 #p-author-img > img {
     max-width: 100%;
     max-height: 100%;
-    border-radius: 8px;
+    border-radius: 6px;
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
 }
 
 #p-post-info {
-    flex-grow: 5;
-    padding-left: 10px;
-}
-
-#p-post-info {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding-left: 10px;
 }
 
 #p-post-info-top {
@@ -169,20 +177,27 @@ export default {
 }
 
 #p-comments-bottom-panel {
-    margin-top: 10px;
-}
-
-#p-likes-icon {
-    color: red;
-    font-size: 22px;
-    margin-right: 2%;
+    margin-top: 9px;
 }
 
 #p-likes {
-    font-size: 18px;
+    display: flex;
+    align-items: center;
 }
 
-/* Devices */
+#p-likes i {
+    font-size: 28px;
+    margin-right: 8px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+}
+
+#p-likes span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Responsive */
 
 @media (max-width: 768px) { 
     #post-page {

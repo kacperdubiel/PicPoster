@@ -1,7 +1,7 @@
 <template>
   <div id="add-comment-container">
      <form>
-        <input type="text" class="form-control" id="new-comment" placeholder="Dodaj komentarz...">
+        <input type="text" class="form-control" id="new-comment" placeholder="Dodaj komentarz..." autocomplete="off" maxlength="250">
     </form>
     <button type="submit" class="btn btn-primary">Dodaj</button>
   </div>

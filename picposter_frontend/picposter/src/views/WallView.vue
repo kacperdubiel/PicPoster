@@ -44,7 +44,7 @@ export default {
 
 @media (min-width: 768px) { 
     #wall-container {
-        margin: 4% 20%;
+        margin: 4% 25%;
     }
 
 }
