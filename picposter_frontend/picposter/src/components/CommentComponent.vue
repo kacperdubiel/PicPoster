@@ -1,6 +1,6 @@
 <template>
   <div id="comment-container">
-    <div id="c-author-img" class="pt-2">
+    <div id="c-author-img">
         <image-component :filename="comment.commentator.profileImagePath" />
     </div>
     <div id="c-info" class="pl-2">
@@ -56,7 +56,7 @@ export default {
   #comment-container {
     display: flex;
     align-items: stretch;
-    padding: 5px 8px 0px 8px;
+    padding: 8px 8px;
   }
 
   #c-author-img {
@@ -64,7 +64,7 @@ export default {
     justify-content: center;
     align-items: flex-start;
     width: 50px;
-    height: 60px;
+    height: 50px;
   }
 
   #c-author-img > img {
