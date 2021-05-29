@@ -5,14 +5,18 @@ import com.picposter.repository.UserDAO;
 import com.picposter.service.api.UserServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.swing.plaf.OptionPaneUI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service("userService")
-public class UserService implements UserServiceAPI {
+public class UserService implements UserServiceAPI, UserDetailsService {
     private UserDAO userDAO;
 
     @Autowired
@@ -70,5 +74,13 @@ public class UserService implements UserServiceAPI {
             return userDAO.save(resultUser);
         }
         return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User u =  getUserByLogin(s);
+        if(u == null)
+            throw new UsernameNotFoundException("username "+s+" not found");
+        return u;
     }
 }
