@@ -28,7 +28,7 @@ export default {
         .then(data => {this.followedPosts = data.data}).catch(e => alert(e))
     }
   },
-  mounted(){
+  created(){
     this.getFollowedPosts()
   }
 }

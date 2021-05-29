@@ -4,8 +4,8 @@
             <div id="p-image" class=""> 
                 <image-component :filename="post.imagePath" />
             </div>
-
             <div id="p-right-panel" class="shadow-box-sm"> 
+                
                 <div id="p-details">
                     <div id="p-author-img">
                         <image-component :filename="post.poster.profileImagePath"/>
@@ -15,13 +15,18 @@
                             <div id="p-post-author">
                                 {{ post.poster.login }}
                             </div>
-                            <div id="p-post-date">
-                                {{ format_date(post.addedDate) }}
+                            <div id="p-back-btn-container">
+                                <div id="p-back-btn" @click="goBack">
+                                    <i class="fas fa-times"></i>
+                                </div>
                             </div>
                         </div>
                         <div id="p-post-info-bottom">
                             {{ post.description }}
                         </div>
+                        <div id="p-post-date">
+                                {{ format_date(post.addedDate) }}
+                            </div>
                     </div>
                 </div>
                 <div id="p-comments">
@@ -72,16 +77,18 @@ export default {
         axios.get('http://localhost:8090/posts/' + this.postId)
         .then(data => {this.post = data.data}).catch(e => alert(e))
     },
-
-
       
     format_date(value){
         if (value) {
           return moment(String(value)).format('DD/MM/YYYY HH:mm')
         }
     },
+
+    goBack(){
+        this.$router.go(-1);
+    },
   },
-  mounted(){
+  created(){
     this.getPost()
   }
 }
@@ -126,6 +133,25 @@ export default {
     min-width: 28vw;
 }
 
+#p-back-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#p-back-btn {
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+#p-back-btn i {
+    font-size: 28px;
+    color: #585858;
+}
+
+#p-back-btn i:hover {
+    color: #707070;
+}
+
 #p-details {
     display: flex;
     justify-content: space-between;
@@ -159,6 +185,7 @@ export default {
 #p-post-info-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #p-post-author {
@@ -166,13 +193,14 @@ export default {
 }
 
 #p-post-date {
-    font-size: 10px;
+    margin-top: 3px;
+    font-size: 11px;
 }
 
 #p-comments {
     border: 1px solid #cccccc;
     margin-top: 10px;
-    height: 45vh;
+    height: 40vh;
     overflow-y: scroll;
 }
 
