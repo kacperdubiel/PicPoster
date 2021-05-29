@@ -82,7 +82,7 @@ export default {
         post: { },
         fetchingStatus: 'fetching',
         isLiked: false,
-        userId: 'a2661f4c-8a82-4972-811f-817481a20e5a'  // TODO: Fix hardcoding after SSO is added
+        userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
     }
   },
   methods:{
