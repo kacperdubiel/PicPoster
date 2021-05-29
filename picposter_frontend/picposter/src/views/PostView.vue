@@ -5,15 +5,18 @@
                 <image-component :filename="post.imagePath" />
             </div>
             <div id="p-right-panel" class="shadow-box-sm"> 
-                
                 <div id="p-details">
-                    <div id="p-author-img">
-                        <image-component :filename="post.poster.profileImagePath"/>
-                    </div>
+                    <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
+                        <div id="p-author-img">
+                            <image-component :filename="post.poster.profileImagePath"/>
+                        </div>
+                    </router-link>
                     <div id="p-post-info">
                         <div id="p-post-info-top">
                             <div id="p-post-author">
-                                {{ post.poster.login }}
+                                <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
+                                    {{ post.poster.login }}
+                                </router-link>
                             </div>
                             <div id="p-back-btn-container">
                                 <div id="p-back-btn" @click="goBack">
@@ -25,8 +28,8 @@
                             {{ post.description }}
                         </div>
                         <div id="p-post-date">
-                                {{ format_date(post.addedDate) }}
-                            </div>
+                            {{ format_date(post.addedDate) }}
+                        </div>
                     </div>
                 </div>
                 <div id="p-comments">
@@ -69,7 +72,7 @@ export default {
         postId: this.$route.params.postId,
         post: {},
         isLiked: false,
-        userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
+        userId: 'a2661f4c-8a82-4972-811f-817481a20e5a'  // TODO: Fix hardcoding after SSO is added
     }
   },
   methods:{
@@ -85,7 +88,10 @@ export default {
     },
 
     goBack(){
-        this.$router.go(-1);
+        if(window.history.length > 1)
+            this.$router.go(-1);
+        else
+            this.$router.push({ name: 'WallView', params: { userId: this.userId } })  // TODO: fix userId hardcoding 
     },
   },
   created(){
@@ -166,13 +172,17 @@ export default {
     padding-top: 7px;
 }
 
-#p-author-img > img {
+#p-author-img img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 6px;
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
+}
+
+#p-author-img img:hover {
+    opacity: .85;
 }
 
 #p-post-info {
@@ -190,6 +200,10 @@ export default {
 
 #p-post-author {
     font-weight: bold;
+}
+
+#p-post-author a:hover {
+    text-decoration: none;
 }
 
 #p-post-date {

@@ -45,7 +45,7 @@ const router = new VueRouter({
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(savedPosition)
-        }, 600)
+        }, 450)
       })
     } else {
       return { x: 0, y: 0 }

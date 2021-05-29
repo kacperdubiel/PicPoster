@@ -1,12 +1,18 @@
 <template>
   <div id="comment-container">
-    <div id="c-author-img">
-        <image-component :filename="comment.commentator.profileImagePath" />
-    </div>
+    <router-link :to="{ name: 'ProfileView', params: { userId: comment.commentator.id } }">
+      <div id="c-author-img">
+          <image-component :filename="comment.commentator.profileImagePath" />
+      </div>
+    </router-link>
     <div id="c-info" class="pl-2">
         <div id="c-info-top">
             <div id="c-author">
-                {{ comment.commentator.login }}
+              <span>
+                <router-link :to="{ name: 'ProfileView', params: { userId: comment.commentator.id } }">
+                  {{ comment.commentator.login }}
+                </router-link>
+              </span>
             </div>
             <div id="c-date">
                 {{ format_date(comment.addedDate) }}
@@ -65,6 +71,7 @@ export default {
     align-items: flex-start;
     width: 50px;
     height: 50px;
+    margin-top: 5px;
   }
 
   #c-author-img > img {
@@ -74,6 +81,10 @@ export default {
     -webkit-box-shadow: 1px 1px 3px #888888;
     -moz-box-shadow:    1px 1px 3px #888888;
     box-shadow:         1px 1px 3px #888888; 
+  }
+
+  #c-author-img > img:hover {
+    opacity: .85;
   }
 
   #c-info {
@@ -89,8 +100,12 @@ export default {
     align-items: center;
   }
 
-  #c-author{
+  #c-author {
     font-weight: bold;
+  }
+
+  #c-author span a:hover {
+    text-decoration: none;
   }
   
   #c-date{

@@ -1,9 +1,9 @@
 <template>
     <div id="wall-post-container" class="shadow-box">
       <router-link :to="{ name: 'PostView', params: { postId: post.id } }">
-      <div id="wp-image">
-        <image-component :filename="post.imagePath" />
-      </div>
+        <div id="wp-image">
+          <image-component :filename="post.imagePath" />
+        </div>
       </router-link>
       <div id="wp-bottom-bar">
         <div id="wp-bottom-bar-left">

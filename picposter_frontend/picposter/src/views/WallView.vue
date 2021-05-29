@@ -1,10 +1,12 @@
 <template>
   <div id="wall-container">
-    <wall-post-component 
-      v-for="post in followedPosts" 
-      :key="post.id"
-      :post="post"
-    />
+    <div v-if="followedPosts">
+      <wall-post-component 
+        v-for="post in followedPosts" 
+        :key="post.id"
+        :post="post"
+      />
+    </div>
   </div>
 </template>
 
@@ -25,7 +27,7 @@ export default {
   methods:{
     getFollowedPosts(){
         axios.get('http://localhost:8090/posts/followed/' + this.$route.params.userId)
-        .then(data => {this.followedPosts = data.data}).catch(e => alert(e))
+        .then(data => {this.followedPosts = data.data}).catch(e => console.log(e))
     }
   },
   created(){
