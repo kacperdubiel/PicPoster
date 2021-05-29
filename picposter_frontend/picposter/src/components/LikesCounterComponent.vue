@@ -1,5 +1,5 @@
 <template>
-    <span>{{ likes.length }}</span>
+    <span :key="likesAmount">{{ likesAmount }}</span>
 </template>
 
 <script>
@@ -10,17 +10,24 @@ export default {
   props: {
       postId: {
         type: String
-      }
+      },
+      isLikesAmountChanged: Boolean
+      
   },
   data(){
     return {
-      likes: []
+      likesAmount: 0
+    }
+  },
+  watch: {
+    'isLikesAmountChanged': function() {
+      this.getPostLikes();
     }
   },
   methods:{
     getPostLikes(){
       axios.get('http://localhost:8090/likes/post/' + this.postId)
-        .then(data => {this.likes = data.data}).catch(e => alert(e))
+        .then(data => {this.likesAmount = data.data.length}).catch(e => alert(e))
     },
 
   },

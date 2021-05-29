@@ -27,8 +27,8 @@
         </div>
       </div>
       <div id="wp-bottom-bar-right">
-        <span><likes-counter-component :postId="post.id" /></span>
-        <likes-icon-component :userId="userId" :postId="post.id"/>
+        <span><likes-counter-component :postId="post.id" :isLikesAmountChanged="isLikesAmountChanged"/></span>
+        <likes-icon-component :userId="userId" :postId="post.id" @likeIconClicked="likeIconClicked"/>
       </div>
     </div>
   </div>
@@ -54,11 +54,16 @@ export default {
   },
   data(){
     return {
+      isLikesAmountChanged: false,
       userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
     }
   },
   methods:{
-   format_date(value){
+    likeIconClicked(){
+      this.isLikesAmountChanged = !this.isLikesAmountChanged
+    },
+
+    format_date(value){
         if (value) {
           return moment(String(value)).format('DD/MM/YYYY HH:mm')
         }
