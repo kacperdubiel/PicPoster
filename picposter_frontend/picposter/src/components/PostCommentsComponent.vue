@@ -30,7 +30,7 @@ export default {
   methods:{
     getPostComments(){
         axios.get('http://localhost:8090/comments/post/' + this.postId)
-        .then(data => {this.comments = data.data}).catch(e => alert(e))
+        .then(data => {this.comments = data.data}).catch(e => console.log(e))
     },
 
   },

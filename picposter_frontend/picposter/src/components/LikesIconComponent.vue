@@ -21,7 +21,10 @@ export default {
   methods:{
     isLikedColorChange(){
         axios.get('http://localhost:8090/likes/user/' + this.userId + '/post/' + this.postId)
-        .then(() => {this.isLiked = true})
+        .then((response) => {
+          if(response.status == 200)
+            this.isLiked = true
+        }).catch((err) => {console.log(err)});
     },
 
   },

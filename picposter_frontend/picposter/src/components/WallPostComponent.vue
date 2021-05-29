@@ -1,37 +1,37 @@
 <template>
-    <div id="wall-post-container" class="shadow-box">
-      <router-link :to="{ name: 'PostView', params: { postId: post.id } }">
-        <div id="wp-image">
-          <image-component :filename="post.imagePath" />
-        </div>
-      </router-link>
-      <div id="wp-bottom-bar">
-        <div id="wp-bottom-bar-left">
-          <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
-            <div id="wp-poster-image">
-              <image-component :filename="post.poster.profileImagePath" />
-            </div>
-          </router-link>
-          <div id="wp-poster-info">
-            <div>
-              <span id="wp-poster">
-                <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
-                  {{ post.poster.login }}
-                </router-link>
-              </span>
-              <span id="wp-desc">{{ post.description }}</span>
-            </div>
-            <div>
-              <span id="wp-date">{{ format_date(post.addedDate) }}</span>
-            </div>
+  <div id="wall-post-container" class="shadow-box">
+    <router-link :to="{ name: 'PostView', params: { postId: post.id } }">
+      <div id="wp-image">
+        <image-component :filename="post.imagePath" />
+      </div>
+    </router-link>
+    <div id="wp-bottom-bar">
+      <div id="wp-bottom-bar-left">
+        <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
+          <div id="wp-poster-image">
+            <image-component :filename="post.poster.profileImagePath" />
+          </div>
+        </router-link>
+        <div id="wp-poster-info">
+          <div>
+            <span id="wp-poster">
+              <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
+                {{ post.poster.login }}
+              </router-link>
+            </span>
+            <span id="wp-desc">{{ post.description }}</span>
+          </div>
+          <div>
+            <span id="wp-date">{{ format_date(post.addedDate) }}</span>
           </div>
         </div>
-        <div id="wp-bottom-bar-right">
-          <span><likes-counter-component :postId="post.id" /></span>
-          <likes-icon-component :userId="userId" :postId="post.id"/>
-        </div>
+      </div>
+      <div id="wp-bottom-bar-right">
+        <span><likes-counter-component :postId="post.id" /></span>
+        <likes-icon-component :userId="userId" :postId="post.id"/>
       </div>
     </div>
+  </div>
 </template>
 
 <script>

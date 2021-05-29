@@ -1,6 +1,12 @@
 <template>
   <div id="wall-container">
-    <div v-if="followedPosts">
+    <div id="wall-loading" v-if="fetchingStatus === 'fetching'">
+        ŁADOWANIE
+    </div>
+    <div id="wall-not-found" v-else-if="fetchingStatus === 'not-found'">
+        Nie znaleziono postów.
+    </div>
+    <div v-else-if="fetchingStatus === 'found'">
       <wall-post-component 
         v-for="post in followedPosts" 
         :key="post.id"
@@ -21,13 +27,20 @@ export default {
   },
   data(){
     return {
-      followedPosts: []
+      followedPosts: [],
+      fetchingStatus: 'fetching'
     }
   },
   methods:{
     getFollowedPosts(){
         axios.get('http://localhost:8090/posts/followed/' + this.$route.params.userId)
-        .then(data => {this.followedPosts = data.data}).catch(e => console.log(e))
+        .then(data => {
+          this.followedPosts = data.data;
+          this.fetchingStatus = "found";
+        }).catch(e => {
+          console.log(e);
+          this.fetchingStatus = "not-found";
+        })
     }
   },
   created(){
@@ -42,6 +55,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+#wall-loading, #wall-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 @media (min-width: 768px) { 

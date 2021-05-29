@@ -1,6 +1,15 @@
 <template>
     <div id="post-page" class="">
-        <div id="post-container" class=""> 
+        <div id="post-loading" v-if="fetchingStatus === 'fetching'">
+            ŁADOWANIE
+        </div>
+
+        <div id="post-not-found" v-else-if="fetchingStatus === 'not-found'">
+            <h1>Błąd 404</h1>
+            <h3>Taki post nie istnieje.</h3>
+        </div>
+
+        <div id="post-container" class="" v-else-if="fetchingStatus === 'found'"> 
             <div id="p-image" class=""> 
                 <image-component :filename="post.imagePath" />
             </div>
@@ -70,7 +79,8 @@ export default {
   data(){
     return {
         postId: this.$route.params.postId,
-        post: {},
+        post: { },
+        fetchingStatus: 'fetching',
         isLiked: false,
         userId: 'a2661f4c-8a82-4972-811f-817481a20e5a'  // TODO: Fix hardcoding after SSO is added
     }
@@ -78,7 +88,15 @@ export default {
   methods:{
     getPost(){
         axios.get('http://localhost:8090/posts/' + this.postId)
-        .then(data => {this.post = data.data}).catch(e => alert(e))
+        .then(data => {
+            this.post = data.data;
+            this.fetchingStatus = 'found';
+        })
+        .catch(e => {
+            console.log(e);
+            this.fetchingStatus = 'not-found';
+        })
+        
     },
       
     format_date(value){
@@ -95,7 +113,7 @@ export default {
     },
   },
   created(){
-    this.getPost()
+    this.getPost();
   }
 }
 </script>
@@ -107,6 +125,16 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: 4%;
+}
+
+#post-loading {
+    font-size: 16px;
+    text-align: center;
+}
+
+#post-not-found {
+    font-size: 20px;
+    text-align: center;
 }
 
 #post-container {
