@@ -7,12 +7,18 @@
       </router-link>
       <div id="wp-bottom-bar">
         <div id="wp-bottom-bar-left">
-          <div id="wp-poster-image">
-            <image-component :filename="post.poster.profileImagePath" />
-          </div>
+          <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
+            <div id="wp-poster-image">
+              <image-component :filename="post.poster.profileImagePath" />
+            </div>
+          </router-link>
           <div id="wp-poster-info">
             <div>
-              <span id="wp-poster">{{ post.poster.login }}</span>
+              <span id="wp-poster">
+                <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
+                  {{ post.poster.login }}
+                </router-link>
+              </span>
               <span id="wp-desc">{{ post.description }}</span>
             </div>
             <div>
@@ -82,6 +88,10 @@ export default {
     border-radius: 10px 10px 0 0;
   }
 
+  #wp-image > img:hover {
+    opacity: .95;
+  }
+
   #wp-bottom-bar{
     display: flex;
     justify-content: space-between;
@@ -114,6 +124,10 @@ export default {
     box-shadow:         1px 1px 4px #888888; 
   }
 
+  #wp-poster-image > img:hover {
+    opacity: .85; 
+  }
+
   #wp-poster-info {
     width:100%;
   }
@@ -121,6 +135,10 @@ export default {
   #wp-poster {
     font-weight: bold;
     margin-right: 5px;
+  }
+
+  #wp-poster a:hover{
+    text-decoration: none;
   }
 
   #wp-date {
