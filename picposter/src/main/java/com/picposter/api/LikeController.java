@@ -66,10 +66,12 @@ public class LikeController {
                                                       @PathVariable("postId") UUID postId){
         User liker = userService.getUserById(userId);
         Post post = postService.getPostById(postId);
+        if(liker == null || post == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // User or Post not found
 
         Like likeResult = likeService.getLikeByLikerAndPost(liker, post);
         if(likeResult == null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT); // User and Post found, but no such Like
         else
             return new ResponseEntity<>(likeResult, HttpStatus.OK);
     }
