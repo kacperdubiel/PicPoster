@@ -46,8 +46,8 @@
                 </div>
                 <div id="p-comments-bottom-panel">
                     <div id="p-likes">
-                        <likes-icon-component :userId="userId" :postId="post.id"/>
-                        <span><likes-counter-component :postId="post.id" /></span>
+                        <likes-icon-component :userId="userId" :postId="post.id" @likeIconClicked="likeIconClicked"/>
+                        <span><likes-counter-component :postId="post.id" :isLikesAmountChanged="isLikesAmountChanged"/></span>
                     </div>
                     <div id="p-add-comment">
                         <add-comment-component />
@@ -82,6 +82,7 @@ export default {
         post: { },
         fetchingStatus: 'fetching',
         isLiked: false,
+        isLikesAmountChanged: false,
         userId: localStorage.getItem('userId') 
     }
   },
@@ -101,6 +102,10 @@ export default {
             this.fetchingStatus = 'not-found';
         })
         
+    },
+
+    likeIconClicked(){
+      this.isLikesAmountChanged = !this.isLikesAmountChanged;
     },
       
     format_date(value){
@@ -168,7 +173,7 @@ export default {
     border-radius: 10px;
     padding: 10px;
     height: fit-content;
-    min-width: 28vw;
+    min-width: 30vw;
 }
 
 #p-back-btn-container {
@@ -312,13 +317,17 @@ export default {
     }
 
     #p-right-panel {
-        max-width: 30vh;
+        max-width: 40vh;
     }
 }
 
 @media (min-width: 2500px) { 
     #p-comments {
-        height: 30vh;
+        height: 25vh;
+    }
+
+    #p-right-panel {
+        max-width: 25vh;
     }
 }
 </style>
