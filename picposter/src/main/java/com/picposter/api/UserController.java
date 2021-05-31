@@ -53,7 +53,10 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody @NonNull User user){
         user.setCreatedDate(LocalDateTime.now());
         User userResult = userService.addUser(user);
-        return new ResponseEntity<>(userResult, HttpStatus.CREATED);
+        if(userResult != null)
+            return new ResponseEntity<>(userResult, HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
     }
 
     @RequestMapping(path = "users/{id}", method = RequestMethod.DELETE)
@@ -68,9 +71,14 @@ public class UserController {
     @RequestMapping(path = "users", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody @NonNull User user){
         User userResult = userService.updateUser(user);
-        if(userResult != null)
+        if(userResult != null )
             return new ResponseEntity<>(userResult, HttpStatus.OK);
         else
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> registerUser(@RequestBody @NonNull User user){
+        return addUser(user);
     }
 }

@@ -38,7 +38,7 @@ public class SecurityConfig extends org.springframework.security.config.annotati
         http.cors();
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate"/*, "/upload/**"*/)
+                .antMatchers("/authenticate", "/register")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -54,7 +54,6 @@ public class SecurityConfig extends org.springframework.security.config.annotati
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){

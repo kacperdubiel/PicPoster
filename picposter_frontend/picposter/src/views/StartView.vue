@@ -25,9 +25,7 @@ export default {
     redirectIfLogin(){
       if(localStorage.getItem('token')){
         this.$router.push(this.$route.query.redirect || '/wall')
-        return true;
       }
-      return false;
     }
   },
   created(){
