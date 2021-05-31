@@ -59,13 +59,12 @@ export default {
   },
   methods:
   {
-    handleSubmit(){
-      
+    handleSubmit(){     
     }
   },
   computed:{
     invalidName(){
-      return 
+      return 1
     }
   }
 }
