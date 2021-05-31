@@ -1,24 +1,29 @@
 <template>
     <div>
-      <form>
+      <form @submit.prevent="handleSubmit">
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="form1Example1" class="form-control" />
+            <input type="email" id="form1Example1" class="form-control" v-model="email" />
             <label class="form-label" for="form1Example1">Email address</label>
+          </div>
+
+          <!-- Username input -->
+          <div class="form-outline mb-4">
+            <input id="form1Example1" class="form-control" v-model="username" />
+            <label class="form-label" for="form1Example1">Username</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="form1Example2" class="form-control" />
+            <input type="password" id="form1Example2" class="form-control"  />
             <label class="form-label" for="form1Example2">Password</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="form1Example2" class="form-control" />
+            <input type="password" id="form1Example2" class="form-control" v-model="password" />
             <label class="form-label" for="form1Example2">Repeat password</label>
           </div>
-
 
           <!-- 2 column grid layout for inline styling -->
           <div class="row mb-4">
@@ -45,6 +50,24 @@
 <script>
 export default {
   name: 'register-component',
+  data(){
+    return{
+      email: "",
+      username: "",
+      password: "",
+    }
+  },
+  methods:
+  {
+    handleSubmit(){
+      
+    }
+  },
+  computed:{
+    invalidName(){
+      return 
+    }
+  }
 }
 </script>
 

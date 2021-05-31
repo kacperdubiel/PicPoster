@@ -36,7 +36,7 @@ public class ImageController {
     }
 
     @RequestMapping(path = "upload/{filename}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> getImage(@PathVariable("filename") String filename, HttpServletRequest request){
+    public ResponseEntity<?> getImage(@PathVariable("filename") String filename, HttpServletRequest request){
         Resource resource = imageService.getImage(filename);
 
         if(resource != null){

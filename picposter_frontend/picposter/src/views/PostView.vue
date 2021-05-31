@@ -82,12 +82,16 @@ export default {
         post: { },
         fetchingStatus: 'fetching',
         isLiked: false,
-        userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
+        userId: localStorage.getItem('userId') 
     }
   },
   methods:{
     getPost(){
-        axios.get('http://localhost:8090/posts/' + this.postId)
+        axios.get('http://localhost:8090/posts/' + this.postId, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
         .then(data => {
             this.post = data.data;
             this.fetchingStatus = 'found';
@@ -114,7 +118,7 @@ export default {
   },
   created(){
     this.getPost();
-  }
+  },
 }
 </script>
 

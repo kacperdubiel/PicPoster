@@ -48,8 +48,12 @@ export default {
   },
   methods:{
     getPostLikes(){
-      axios.get('http://localhost:8090/likes/post/' + this.post.id)
-        .then(data => {this.likes = data.data}).catch(e => alert(e))
+      axios.get('http://localhost:8090/likes/post/' + this.post.id, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      .then(data => {this.likes = data.data}).catch(e => alert(e))
     },
 
     format_date(value){

@@ -29,8 +29,12 @@ export default {
   },
   methods:{
     getPostComments(){
-        axios.get('http://localhost:8090/comments/post/' + this.postId)
-        .then(data => {this.comments = data.data}).catch(e => console.log(e))
+        axios.get('http://localhost:8090/comments/post/' + this.postId, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      .then(data => {this.comments = data.data}).catch(e => console.log(e))
     },
 
   },

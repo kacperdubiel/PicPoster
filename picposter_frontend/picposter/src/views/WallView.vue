@@ -1,5 +1,10 @@
 <template>
   <div id="wall-container">
+    <div>
+      <form @submit.prevent="handleLogout">
+          <button type="submit" class="btn btn-primary btn-block">Logout</button>
+      </form>
+    </div>
     <div id="wall-loading" v-if="fetchingStatus === 'fetching'">
         ŁADOWANIE
     </div>
@@ -19,6 +24,7 @@
 <script>
 import WallPostComponent from '../components/WallPostComponent.vue'
 import axios from "axios"
+//axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 
 export default {
   name: 'WallView',
@@ -33,7 +39,12 @@ export default {
   },
   methods:{
     getFollowedPosts(){
-        axios.get('http://localhost:8090/posts/followed/' + this.$route.params.userId)
+        axios.get('http://localhost:8090/posts/followed/' + localStorage.getItem('userId'),{
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+        }
+      )
         .then(data => {
           this.followedPosts = data.data;
           this.fetchingStatus = "found";
@@ -41,11 +52,28 @@ export default {
           console.log(e);
           this.fetchingStatus = "not-found";
         })
+    },
+    handleLogout(){
+      localStorage.removeItem('userId');
+      localStorage.removeItem('token');
+      this.$router.push(this.$route.query.redirect || '/')
+    },
+    redirectIfLogout(){
+      if(!localStorage.getItem('token')){
+        this.$router.push(this.$route.query.redirect || '/')
+        return true;
+      }
+      return false;
     }
   },
   created(){
-    this.getFollowedPosts()
+    if(!this.redirectIfLogout()){
+      this.getFollowedPosts()
+    }
   }
+  /*mounted(){
+      this.getFollowedPosts()
+  }*/
 }
 </script>
 

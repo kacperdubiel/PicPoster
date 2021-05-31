@@ -44,16 +44,27 @@ export default {
   },
   methods: {
       getUser(){
-        axios.get('http://localhost:8090/users/' + this.$route.params.userId)
+        axios.get('http://localhost:8090/users/' + localStorage.getItem('userId'), {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
         .then(data => {this.user = data.data}).catch(e => alert(e))
       },
       getPosts(){
-        axios.get('http://localhost:8090/posts/user/' + this.$route.params.userId)
+        axios.get('http://localhost:8090/posts/user/' + localStorage.getItem('userId'), {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
         .then(data => {this.posts = data.data}).catch(e => alert(e))
       },
       getImage(){
             let config = {
                 url: 'http://localhost:8090/upload/' + this.user.profileImagePath,
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
                 method: 'GET',
                 responseType: 'blob'
             }

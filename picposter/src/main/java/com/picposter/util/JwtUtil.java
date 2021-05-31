@@ -5,12 +5,14 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @Service
 public class JwtUtil {
     private static String SECRET_KEY = "secret"; //TEGO TU NIE POWINNO BYĆ, DO ZMIANY POZNIEJ

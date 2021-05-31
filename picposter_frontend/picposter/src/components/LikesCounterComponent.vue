@@ -26,8 +26,12 @@ export default {
   },
   methods:{
     getPostLikes(){
-      axios.get('http://localhost:8090/likes/post/' + this.postId)
-        .then(data => {this.likesAmount = data.data.length}).catch(e => alert(e))
+      axios.get('http://localhost:8090/likes/post/' + this.postId, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      .then(data => {this.likesAmount = data.data.length}).catch(e => alert(e))
     },
 
   },

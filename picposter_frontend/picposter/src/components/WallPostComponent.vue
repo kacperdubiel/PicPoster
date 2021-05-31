@@ -40,6 +40,7 @@ import LikesCounterComponent from './LikesCounterComponent.vue'
 import LikesIconComponent from './LikesIconComponent.vue'
 import moment from 'moment';
 
+
 export default {
   name: 'post-component',
   components: {
@@ -55,7 +56,7 @@ export default {
   data(){
     return {
       isLikesAmountChanged: false,
-      userId: '463bc735-22eb-4184-a48a-0c506cd4e591'  // TODO: Fix hardcoding after SSO is added
+      userId: localStorage.getItem('userId')  // TODO: Fix hardcoding after SSO is added
     }
   },
   methods:{

@@ -25,6 +25,9 @@ export default {
         getImage(){
             let config = {
                 url: 'http://localhost:8090/upload/' + this.post.imagePath,
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
                 method: 'GET',
                 responseType: 'blob'
             }

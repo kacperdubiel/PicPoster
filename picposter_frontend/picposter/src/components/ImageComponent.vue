@@ -21,6 +21,9 @@ export default {
     getImg(){
       let config = {
           url: 'http://localhost:8090/upload/' + this.filename,
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          },
           method: 'GET',
           responseType: 'blob'
       }
@@ -43,6 +46,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
 </style>

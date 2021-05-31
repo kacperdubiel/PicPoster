@@ -15,7 +15,7 @@ const routes = [
     component: StartView
   },
   {
-    path: '/wall/:userId',
+    path: '/wall',
     name: 'WallView',
     component: WallView
   },
