@@ -41,7 +41,6 @@ export default {
                   this.$emit('likeIconClicked')
                 }
               }).catch(err => console.log(err))
-            
           } else if(response.status == 204){
             // User and Post is correct and there is no Like - Add new Like
             const newLike = { liker: { id: this.userId }, post: { id: this.postId } };
