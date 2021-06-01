@@ -1,4 +1,7 @@
 <template>
+<div>
+    <navbar-component />
+
     <div id="post-page" class="">
         <div id="post-loading" v-if="fetchingStatus === 'fetching'">
             ŁADOWANIE
@@ -15,11 +18,11 @@
             </div>
             <div id="p-right-panel" class="shadow-box-sm"> 
                 <div id="p-details">
-                    <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
-                        <div id="p-author-img">
+                    <div id="p-author-img">
+                        <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
                             <image-component :filename="post.poster.profileImagePath"/>
-                        </div>
-                    </router-link>
+                        </router-link>
+                    </div>
                     <div id="p-post-info">
                         <div id="p-post-info-top">
                             <div id="p-post-author">
@@ -56,10 +59,12 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import ImageComponent from '../components/ImageComponent.vue'
+import NavbarComponent from '../components/NavbarComponent.vue'
 import LikesCounterComponent from '../components/LikesCounterComponent.vue'
 import LikesIconComponent from '../components/LikesIconComponent.vue'
 import PostCommentsComponent from '../components/PostCommentsComponent.vue'
@@ -71,6 +76,7 @@ export default {
   name: 'PostView',
   components: {
     ImageComponent,
+    NavbarComponent,
     LikesCounterComponent,
     LikesIconComponent,
     PostCommentsComponent,
@@ -120,9 +126,20 @@ export default {
         else
             this.$router.push({ name: 'WallView', params: { userId: this.userId } })  // TODO: fix userId hardcoding 
     },
+
+    redirectIfLogout(){
+      if(!localStorage.getItem('token')){
+        this.$router.push(this.$route.query.redirect || '/')
+        return true;
+      }
+      return false;
+    }
   },
   created(){
-    this.getPost();
+    if(!this.redirectIfLogout()){
+        this.getPost();
+    }
+    
   },
 }
 </script>
@@ -133,7 +150,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4%;
 }
 
 #post-loading {
@@ -149,8 +165,8 @@ export default {
 #post-container {
     display: flex;
     justify-content: center;
-    
     width: fit-content;
+    max-width: 80vw;
 }
 
 #p-image {
@@ -158,13 +174,15 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 12px;
 }
 
-#p-image > img {
+#p-image img {
     border-radius: 10px;
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
+    max-height: 80vh;
 }
 
 #p-right-panel {
@@ -173,7 +191,10 @@ export default {
     border-radius: 10px;
     padding: 10px;
     height: fit-content;
-    min-width: 30vw;
+    min-width: 350px;
+    width: 25vw;
+    max-width: 500px;
+    background-color: white;
 }
 
 #p-back-btn-container {
@@ -197,22 +218,24 @@ export default {
 
 #p-details {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
 }
 
 #p-author-img {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 70px;
-    height: 80px;
-    padding-top: 7px;
+    height: 70px;
+    margin-right: 10px;
 }
 
 #p-author-img img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 6px;
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
@@ -225,8 +248,8 @@ export default {
 #p-post-info {
     display: flex;
     flex-direction: column;
+    flex: 1;
     width: 100%;
-    padding-left: 10px;
 }
 
 #p-post-info-top {
@@ -278,6 +301,12 @@ export default {
 
 /* Responsive */
 
+@media (max-width: 1250px) { 
+    #post-container {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) { 
     #post-page {
         margin: 0;
@@ -289,45 +318,31 @@ export default {
     }
 
     #p-image {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
+        margin-right: 0;
     }
 
-    #p-image > img {
+    #p-image img {
         max-width: 100%;
-        max-height: 100vh;
+        max-height: 90vh;
+        border-radius: 0;
     }
 
     #p-right-panel {
         width: 100%;
+        min-width: 100%;
+        max-width: 100%;
     }
 
-}
-
-@media (min-width: 768px) { 
-    #post-container {
-        max-width: 85%;
-    }
-
-    #p-image {
-        margin-right: 12px;
-    }
-
-    #p-image > img {
-        max-height: 90vh;
-    }
-
-    #p-right-panel {
-        max-width: 40vh;
-    }
 }
 
 @media (min-width: 2500px) { 
-    #p-comments {
+    /* #p-comments {
         height: 25vh;
-    }
-
+    } */
+/* 
     #p-right-panel {
-        max-width: 25vh;
-    }
+        
+    } */
 }
 </style>

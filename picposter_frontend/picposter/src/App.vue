@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
 <style>
 
 body {
-  background-color: #fbfbfb;
+  background-color: #f7f7f7;
 }
 
 #app {
@@ -15,6 +15,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  padding-top: 110px;
 }
 
 .shadow-box-sm {
@@ -34,6 +35,5 @@ body {
    -webkit-box-shadow: inset 0 0 3px #888888;
    box-shadow:         inset 0 0 3px #888888;
 }
-
 
 </style>

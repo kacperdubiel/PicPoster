@@ -26,7 +26,11 @@ export default {
   },
   methods:{
     getUserFollowingsAmount(){
-      axios.get('http://localhost:8090/follows/follower/' + this.userId)
+      axios.get('http://localhost:8090/follows/follower/' + this.userId, {
+          headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        })
         .then(data => {this.followingsAmount = data.data.length}).catch(e => alert(e))
     },
 

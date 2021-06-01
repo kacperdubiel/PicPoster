@@ -1,10 +1,10 @@
 <template>
   <div id="comment-container">
-    <router-link :to="{ name: 'ProfileView', params: { userId: comment.commentator.id } }">
-      <div id="c-author-img">
+    <div id="c-author-img">
+      <router-link :to="{ name: 'ProfileView', params: { userId: comment.commentator.id } }">
           <image-component :filename="comment.commentator.profileImagePath" />
-      </div>
-    </router-link>
+      </router-link>
+    </div>
     <div id="c-info" class="pl-2">
         <div id="c-info-top">
             <div id="c-author">
@@ -61,29 +61,31 @@ export default {
 <style scoped>
   #comment-container {
     display: flex;
-    align-items: stretch;
+    flex-direction: row;
     padding: 8px 8px;
   }
 
   #c-author-img {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 50px;
     height: 50px;
-    margin-top: 5px;
+    margin-right: 5px;
   }
 
-  #c-author-img > img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 6px;
-    -webkit-box-shadow: 1px 1px 3px #888888;
-    -moz-box-shadow:    1px 1px 3px #888888;
-    box-shadow:         1px 1px 3px #888888; 
+  #c-author-img img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    -webkit-box-shadow: 1px 1px 4px #888888;
+    -moz-box-shadow:    1px 1px 4px #888888;
+    box-shadow:         1px 1px 4px #888888; 
   }
 
-  #c-author-img > img:hover {
+  #c-author-img img:hover {
     opacity: .85;
   }
 
@@ -92,6 +94,7 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     width:100%;
+    flex: 1;
   }
 
   #c-info-top {

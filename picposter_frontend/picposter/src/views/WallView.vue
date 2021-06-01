@@ -1,27 +1,27 @@
 <template>
-  <div id="wall-container">
-    <div>
-      <form @submit.prevent="handleLogout">
-          <button type="submit" class="btn btn-primary btn-block">Logout</button>
-      </form>
-    </div>
-    <div id="wall-loading" v-if="fetchingStatus === 'fetching'">
-        ŁADOWANIE
-    </div>
-    <div id="wall-not-found" v-else-if="fetchingStatus === 'not-found'">
-        Nie znaleziono postów.
-    </div>
-    <div v-else-if="fetchingStatus === 'found'">
-      <wall-post-component 
-        v-for="post in followedPosts" 
-        :key="post.id"
-        :post="post"
-      />
+  <div>
+    <navbar-component />
+
+    <div id="wall-container">
+      <div id="wall-loading" v-if="fetchingStatus === 'fetching'">
+          ŁADOWANIE
+      </div>
+      <div id="wall-not-found" v-else-if="fetchingStatus === 'not-found'">
+          Nie znaleziono postów.
+      </div>
+      <div id="wall-posts-container" v-else-if="fetchingStatus === 'found'">
+        <wall-post-component 
+          v-for="post in followedPosts" 
+          :key="post.id"
+          :post="post"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import NavbarComponent from '../components/NavbarComponent.vue'
 import WallPostComponent from '../components/WallPostComponent.vue'
 import axios from "axios"
 //axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
@@ -29,6 +29,7 @@ import axios from "axios"
 export default {
   name: 'WallView',
   components: {
+    NavbarComponent,
     WallPostComponent
   },
   data(){
@@ -40,9 +41,9 @@ export default {
   methods:{
     getFollowedPosts(){
         axios.get('http://localhost:8090/posts/followed/' + localStorage.getItem('userId'),{
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
         }
       )
         .then(data => {
@@ -53,11 +54,7 @@ export default {
           this.fetchingStatus = "not-found";
         })
     },
-    handleLogout(){
-      localStorage.removeItem('userId');
-      localStorage.removeItem('token');
-      this.$router.push(this.$route.query.redirect || '/')
-    },
+    
     redirectIfLogout(){
       if(!localStorage.getItem('token')){
         this.$router.push(this.$route.query.redirect || '/')
@@ -71,18 +68,12 @@ export default {
       this.getFollowedPosts()
     }
   }
-  /*mounted(){
-      this.getFollowedPosts()
-  }*/
 }
 </script>
 
 <style>
 #wall-container {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  
 }
 
 #wall-loading, #wall-not-found {
@@ -92,11 +83,13 @@ export default {
   text-align: center;
 }
 
-@media (min-width: 768px) { 
-    #wall-container {
-        margin: 4% 25%;
-    }
-
+#wall-posts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
 }
+
 
 </style>

@@ -22,15 +22,15 @@ export default {
   },
   methods:{
     isLikedColorChange(){
-        axios.get('http://localhost:8090/likes/user/' + this.userId + '/post/' + this.postId, {
+      axios.get('http://localhost:8090/likes/user/' + this.userId + '/post/' + this.postId, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }
       })
-        .then((response) => {
-          if(response.status == 200)
-            this.isLiked = true
-        }).catch((err) => {console.log(err)});
+      .then((response) => {
+        if(response.status == 200)
+          this.isLiked = true
+      }).catch((err) => {console.log(err)});
     },
 
     likePost(){
@@ -41,7 +41,7 @@ export default {
       })
       .then((response) => {
           if(response.status == 200){
-            // Like already exist - Delete old Like
+            // Like already exist -> Delete old Like
             axios.delete("http://localhost:8090/likes/" + response.data.id, {
               headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -54,7 +54,7 @@ export default {
                 }
               }).catch(err => console.log(err))
           } else if(response.status == 204){
-            // User and Post is correct and there is no Like - Add new Like
+            // User and Post are correct and there is no Like -> Add new Like
             const newLike = { liker: { id: this.userId }, post: { id: this.postId } };
             axios.post("http://localhost:8090/likes", newLike, {
               headers: {
@@ -84,7 +84,7 @@ export default {
 }
 
 #likes-icon:hover {
-  color: rgb(255, 25, 71);
+  opacity: .7;
 }
 
 .p-not-liked {

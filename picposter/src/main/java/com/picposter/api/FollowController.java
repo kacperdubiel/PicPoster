@@ -1,8 +1,11 @@
 package com.picposter.api;
 
 import com.picposter.domain.Follow;
+import com.picposter.domain.Like;
+import com.picposter.domain.Post;
 import com.picposter.domain.User;
 import com.picposter.service.api.FollowServiceAPI;
+import com.picposter.service.api.UserServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,10 +21,13 @@ import java.util.UUID;
 @RestController
 public class FollowController {
     private final FollowServiceAPI followService;
+    private final UserServiceAPI userService;
 
     @Autowired
-    public FollowController(@Qualifier("followService") FollowServiceAPI followService){
+    public FollowController(@Qualifier("followService") FollowServiceAPI followService,
+                            @Qualifier("userService") UserServiceAPI userService){
         this.followService = followService;
+        this.userService = userService;
     }
 
     @RequestMapping(path = "follows/{id}", method = RequestMethod.GET)
@@ -49,6 +55,21 @@ public class FollowController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<>(followsResult, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "follows/follower/{followerId}/followed/{followedId}", method = RequestMethod.GET)
+    public ResponseEntity<Follow> getFollowByFollowerAndFollowed(@PathVariable("followerId") UUID followerId,
+                                                               @PathVariable("followedId") UUID followedId){
+        User follower = userService.getUserById(followerId);
+        User followed = userService.getUserById(followedId);
+        if(follower == null || followed == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // User or Post not found
+
+        Follow followResult = followService.getFollowByFollowerAndFollowed(follower, followed);
+        if(followResult == null)
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT); // User and Post found, but no such Like
+        else
+            return new ResponseEntity<>(followResult, HttpStatus.OK);
     }
 
     @RequestMapping(path = "follows", method = RequestMethod.POST)

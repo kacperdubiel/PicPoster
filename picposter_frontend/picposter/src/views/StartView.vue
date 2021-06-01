@@ -1,23 +1,28 @@
 <template>
   <div>
-    <h1 id="start-logo">PIC POSTER</h1>
-    <div class="start-view-container">
-      <div class="start-view-component">
-        <login-component></login-component>
-      </div>
-      <div class="start-view-component">
-        <register-component></register-component>
+    <navbar-component />
+
+    <div>
+      <div class="start-view-container">
+        <div class="start-view-component">
+          <login-component></login-component>
+        </div>
+        <div class="start-view-component">
+          <register-component></register-component>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import NavbarComponent from '../components/NavbarComponent.vue'
 import LoginComponent from '../components/LoginComponent.vue'
 import RegisterComponent from '../components/RegisterComponent.vue'
 export default {
   name: 'StartView',
   components: {
+    NavbarComponent,
     LoginComponent,
     RegisterComponent
   },
@@ -25,9 +30,8 @@ export default {
     redirectIfLogin(){
       if(localStorage.getItem('token')){
         this.$router.push(this.$route.query.redirect || '/wall')
-        return true;
+        
       }
-      return false;
     }
   },
   created(){

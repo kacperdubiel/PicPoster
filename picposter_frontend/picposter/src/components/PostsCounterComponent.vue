@@ -26,7 +26,11 @@ export default {
   },
   methods:{
     getUserPostsAmount(){
-      axios.get('http://localhost:8090/posts/user/' + this.userId)
+      axios.get('http://localhost:8090/posts/user/' + this.userId, {
+          headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        })
         .then(data => {this.postsAmount = data.data.length}).catch(e => alert(e))
     },
 

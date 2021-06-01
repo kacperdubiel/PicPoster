@@ -7,11 +7,11 @@
     </router-link>
     <div id="wp-bottom-bar">
       <div id="wp-bottom-bar-left">
-        <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
-          <div id="wp-poster-image">
+        <div id="wp-poster-image">
+          <router-link :to="{ name: 'ProfileView', params: { userId: post.poster.id } }">
             <image-component :filename="post.poster.profileImagePath" />
-          </div>
-        </router-link>
+          </router-link>
+        </div>
         <div id="wp-poster-info">
           <div>
             <span id="wp-poster">
@@ -79,6 +79,11 @@ export default {
   #wall-post-container {
     border-radius: 10px;
     margin-bottom: 20px;
+    background-color: white;
+    width: 100%;
+    max-width: 50%;
+    /* min-width: 30vw;
+    max-width: 70vw; */
   }
 
   #wp-image {
@@ -88,13 +93,13 @@ export default {
     align-items: center;
   }
 
-  #wp-image > img {
+  #wp-image img {
     max-width: 100%;
     max-height: 75vh;
     border-radius: 10px 10px 0 0;
   }
 
-  #wp-image > img:hover {
+  #wp-image img:hover {
     opacity: .95;
   }
 
@@ -112,30 +117,32 @@ export default {
   }
 
   #wp-poster-image {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 5px;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
   }
   
-  #wp-poster-image > img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 7px;
+  #wp-poster-image img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
   }
 
-  #wp-poster-image > img:hover {
+  #wp-poster-image img:hover {
     opacity: .85; 
   }
 
   #wp-poster-info {
-    width:100%;
+    max-width: 100%;
+    flex: 1;
   }
 
   #wp-poster {
@@ -168,4 +175,17 @@ export default {
   #wp-bottom-bar-right i {
     font-size: 32px;
   }
+
+@media (max-width: 1000px) { 
+  #wall-post-container {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 768px) { 
+  #wall-post-container {
+    max-width: 97%;
+  }
+}
+
 </style>
