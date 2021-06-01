@@ -30,7 +30,6 @@ export default {
     redirectIfLogin(){
       if(localStorage.getItem('token')){
         this.$router.push(this.$route.query.redirect || '/wall')
-        
       }
     }
   },

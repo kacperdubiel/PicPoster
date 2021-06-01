@@ -3,16 +3,21 @@
         <form @submit.prevent="handleSubmit">
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input id="email-input" class="form-control" v-model="username" />
+            <input id="email-input" class="form-control" 
+            v-model="username"
+            :class="{'has-error' : submitting && invalidUsername}" />
             <label class="form-label" for="email-input">Username</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="password-input" class="form-control" v-model="password" />
+            <input type="password" id="password-input" class="form-control" 
+            v-model="password"
+            :class="{'has-error' : submitting && invalidPassword}" />
             <label class="form-label" for="password-input">Password</label>
           </div>
-
+          <p v-if="error && submitting" class="error-message"> Please fill form fields</p>
+          <p v-if="loginError && submitting" class="error-message">Bad username or password, try again!</p>
           <!-- Submit button -->
           <button type="submit" class="btn btn-primary btn-block">Sign in</button>
         </form>
@@ -27,18 +32,32 @@ export default {
     return {
       username: "",
       password: "",
+      loginError: false,
+      error: false,
+      success: false,
+      submitting: false,
     }
   },
   methods: {
     handleSubmit(){
-      var loginError = false;
+      
+      this.submitting = true;
+      this.success = false;
+      this.loginError = false;
+      this.error = false;
+
+      if(this.invalidUsername || this.invalidPassword){
+        this.error = true;
+        return;
+      }
+
       axios.post("http://localhost:8090/authenticate", {
         username : this.username,
         password : this.password
       })
-      .catch(e => { console.log(e); loginError = true;})
+      .catch(e => { console.log(e); this.loginError = true;})
       .then((response) => {
-        if(!loginError) {
+        if(!this.loginError) {
           localStorage.setItem('token', response.data.jwt)
           this.setUserId(this.username)
           setTimeout(() => {
@@ -48,7 +67,15 @@ export default {
         else {
           localStorage.removeItem('token')
           localStorage.removeItem('userId')
+          return;
         }
+
+        this.username = '';
+        this.password = '';
+        this.error = false;
+        this.success = true;
+        this.submitting = false;
+        this.loginErr = false;
       })
     },
 
@@ -56,6 +83,14 @@ export default {
        axios.get('http://localhost:8090/users/login/' + username, {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}} )
       .then((response) => {localStorage.setItem('userId', response.data.id)})
       .catch(e => console.log(e))
+    }
+  },
+  computed:{
+    invalidUsername(){
+      return this.username === '';
+    },
+    invalidPassword(){
+      return this.password === '';
     }
   }
 }

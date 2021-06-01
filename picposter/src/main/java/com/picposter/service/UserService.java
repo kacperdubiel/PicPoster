@@ -46,9 +46,16 @@ public class UserService implements UserServiceAPI, UserDetailsService {
     @Override
     public User addUser(User user) {
         user.setId(UUID.randomUUID());
+       if(getUserByEmail(user.getEmail()) != null || getUserByLogin(user.getLogin()) != null)
+           return null;
         while(userDAO.findById(user.getId()).isPresent())
             user.setId(UUID.randomUUID());
-        return userDAO.save(user);
+        try {
+            return userDAO.save(user);
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override
