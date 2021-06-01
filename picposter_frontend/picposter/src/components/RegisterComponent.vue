@@ -89,8 +89,9 @@ export default {
 
       axios.post("http://localhost:8090/register", {
         login: this.username,
-        password : this.password,
-        email : this.email
+        password: this.password,
+        email: this.email,
+        profileImagePath: 'no-image.png'
       })
       .catch(e => {console.log(e); this.serverErr = true})
       .then(() => {
