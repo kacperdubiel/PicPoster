@@ -13,7 +13,7 @@ import CommentComponent from './CommentComponent.vue'
 import axios from "axios";
 
 export default {
-  name: 'image-component',
+  name: 'post-comments-component',
   components: {
     CommentComponent
   },
