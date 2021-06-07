@@ -10,6 +10,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -29,6 +30,15 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<>(userResult, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "users/search/{prefix}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> searchUser(@PathVariable("prefix") String prefix){
+        List<User> usersResult = userService.searchUser(prefix);
+        if(usersResult == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(usersResult, HttpStatus.OK);
     }
 
     @RequestMapping(path = "users/login/{login}", method = RequestMethod.GET)

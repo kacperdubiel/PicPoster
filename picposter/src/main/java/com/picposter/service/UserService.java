@@ -14,6 +14,7 @@ import javax.swing.plaf.OptionPaneUI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service("userService")
 public class UserService implements UserServiceAPI, UserDetailsService {
@@ -34,6 +35,20 @@ public class UserService implements UserServiceAPI, UserDetailsService {
         List<User> allUsers = userDAO.findAll();
         Optional<User> foundUser = allUsers.stream().filter(user -> user.getLogin().equals(userLogin)).findFirst();
         return foundUser.orElse(null);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userDAO.findAll();
+    }
+
+    @Override
+    public List<User> searchUser(String startString) {
+        List<User> users = userDAO.findAll();
+        return users.stream()
+                .filter(user -> user.getLogin().startsWith(startString))
+                .limit(10)
+                .collect(Collectors.toList());
     }
 
     @Override
