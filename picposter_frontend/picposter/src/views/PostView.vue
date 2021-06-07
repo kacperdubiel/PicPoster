@@ -53,7 +53,7 @@
                         <span><likes-counter-component :postId="post.id" :isLikesAmountChanged="isLikesAmountChanged"/></span>
                     </div>
                     <div id="p-add-comment">
-                        <add-comment-component />
+                        <add-comment-component :postAllowComments="post.allowComments" />
                     </div>
                 </div>
             </div>

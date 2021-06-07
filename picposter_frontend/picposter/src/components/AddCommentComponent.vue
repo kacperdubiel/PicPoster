@@ -3,7 +3,7 @@
      <form>
         <input type="text" class="form-control" id="new-comment" placeholder="Dodaj komentarz..." autocomplete="off" maxlength="250">
     </form>
-    <button type="submit" class="btn btn-primary">Dodaj</button>
+    <button type="submit" class="btn btn-primary" id="new-comment-submit">Dodaj</button>
   </div>
 </template>
 
@@ -16,10 +16,19 @@ export default {
     return {
     }
   },
+  props: {
+    postAllowComments: Boolean
+  },
   methods:{
+    blockComments(){
+      if(this.postAllowComments == false){
+        document.getElementById("new-comment").disabled=true;
+        document.getElementById("new-comment-submit").disabled=true;
+      }
+    }
   },
   mounted(){
-    
+    this.blockComments();  
   }
 }
 </script>
