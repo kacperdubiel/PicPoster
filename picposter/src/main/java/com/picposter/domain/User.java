@@ -1,6 +1,7 @@
 package com.picposter.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -30,6 +32,13 @@ public class User implements UserDetails {
     private String description;
     @Column(name = "profile_image_path")
     private String profileImagePath;
+    @Column(name = "test_column")
+    private String testColumn;
+
+    public String getTestColumn() {
+        return testColumn;
+    }
+
     @JsonIgnore
     @OneToMany (mappedBy = "poster")
     private List<Post> posts;

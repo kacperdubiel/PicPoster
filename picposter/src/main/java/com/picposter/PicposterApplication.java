@@ -10,17 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class PicposterApplication implements CommandLineRunner {
-	/*@Autowired
-	private CommentDAO commentRepo;
-	@Autowired
-	private LikeDAO likeRepo;*/
-
 	public static void main(String[] args) {
 		SpringApplication.run(PicposterApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		//commentRepo.
 	}
 }
