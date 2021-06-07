@@ -37,8 +37,10 @@ public class PostController {
         List<Post> postsResult = postService.getUserPosts(userId);
         if(postsResult == null)
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        else
+        else {
+            postsResult.sort((Post p1, Post p2)->(-1*(p1.getAddedDate().compareTo(p2.getAddedDate()))));
             return new ResponseEntity<>(postsResult, HttpStatus.OK);
+        }
     }
 
     @RequestMapping(path = "posts/followed/{id}", method = RequestMethod.GET)

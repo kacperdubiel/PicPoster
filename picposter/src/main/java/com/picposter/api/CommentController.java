@@ -45,11 +45,12 @@ public class CommentController {
     @RequestMapping(path = "comments/post/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Comment>> getPostComments(@PathVariable("id") UUID postId){
         List<Comment> commentsResult =commentService.getPostComments(postId);
-        commentsResult.sort((Comment c1, Comment c2) -> c1.getAddedDate().compareTo(c2.getAddedDate()));
         if(commentsResult == null)
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        else
+        else {
+            commentsResult.sort((Comment c1, Comment c2) -> c1.getAddedDate().compareTo(c2.getAddedDate()));
             return new ResponseEntity<>(commentsResult, HttpStatus.OK);
+        }
     }
 
     @RequestMapping(path = "comments", method = RequestMethod.POST)
