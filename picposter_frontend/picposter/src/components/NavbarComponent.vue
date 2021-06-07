@@ -9,8 +9,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler" v-if="user.id">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
+            <form @submit.prevent="handleSearch" class="form-inline my-2 my-lg-0">
+                <input v-model="searchInput" class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
                 <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
             </form>
             <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -48,7 +48,8 @@ export default {
     },
     data(){
         return {
-            user: {}
+            user: {},
+            searchInput: ""
         }
     },
     methods:{
@@ -65,7 +66,10 @@ export default {
                 console.log(e);
             })
         },
-
+        handleSearch(){
+            this.$router.push(this.$route.query.redirect || '/search/' + this.searchInput)
+        },
+        
         handleLogout(){
             localStorage.removeItem('userId');
             localStorage.removeItem('token');

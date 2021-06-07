@@ -1,24 +1,22 @@
 <template>
-    
+    <div>
+        <navbar-component/>
+        <list-of-search-results-component :prefix="prefix"/>
+    </div>
 </template>
-
 <script>
-import axios from 'axios'
+import ListOfSearchResultsComponent from "../components/ListOfSearchResultsComponent.vue"
+import NavbarComponent from "../components/NavbarComponent.vue"
 export default {
-    name: "SearchView",
+    name: "search-view",
+    components:{
+        ListOfSearchResultsComponent,
+        NavbarComponent
+    },
     data(){
         return{
-            users: []
-        }
-    },
-    methods:{
-        getUsers(){
-
+            prefix: this.$route.params.prefix,
         }
     }
 }
 </script>
-
-<style>
-
-</style>

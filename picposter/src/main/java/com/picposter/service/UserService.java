@@ -46,7 +46,7 @@ public class UserService implements UserServiceAPI, UserDetailsService {
     public List<User> searchUser(String startString) {
         List<User> users = userDAO.findAll();
         return users.stream()
-                .filter(user -> user.getLogin().startsWith(startString))
+                .filter(user -> user.getLogin().toLowerCase().startsWith(startString.toLowerCase()))
                 .limit(10)
                 .collect(Collectors.toList());
     }
