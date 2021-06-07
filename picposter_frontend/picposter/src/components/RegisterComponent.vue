@@ -6,7 +6,7 @@
             <input type="email" id="form1Example1" class="form-control"
               v-model="email"
               :class="{'has-error' : submitting && invalidEmail}" />
-            <label class="form-label" for="form1Example1">Email address</label>
+            <label class="form-label" for="form1Example1">Adres Email</label>
           </div>
 
           <!-- Username input -->
@@ -14,7 +14,7 @@
             <input id="form1Example1" class="form-control"
               v-model="username"
               :class="{'has-error' : submitting && invalidUsername}" />
-            <label class="form-label" for="form1Example1">Username</label>
+            <label class="form-label" for="form1Example1">Login</label>
           </div>
 
           <!-- Password input -->
@@ -22,17 +22,18 @@
             <input type="password" id="form1Example2" class="form-control" 
               v-model="repPassword"
               :class="{'has-error' : submitting && (invalidPassword || unproperPassword)}" />
-            <label class="form-label" for="form1Example2">Password</label>
+            <label class="form-label" for="form1Example2">Hasło</label>
           </div>
-          <p v-if="submitting && unproperPassword" class="error-message"> Password must containt 8 signs, at least one lowercase letter, one uppercase letter and number</p>
+          <p v-if="submitting && unproperPassword" class="error-message"> 
+            Hasło musi posiadać minimum: 8 znaków, jedną małą literę, jedną wielką literę oraz liczbę.</p>
           <!-- Password input -->
           <div class="form-outline mb-4">
             <input type="password" id="form1Example2" class="form-control"
               v-model="password"
               :class="{'has-error' : submitting && (invalidPassword || unproperPassword)}"/>
-            <label class="form-label" for="form1Example2">Repeat password</label>
+            <label class="form-label" for="form1Example2">Powtórz hasło</label>
           </div>
-          <p v-if="submitting && notSamePassword" class="error-message"> Repeated password is not the same</p>
+          <p v-if="submitting && notSamePassword" class="error-message"> Powtórzone hasło jest błędne</p>
           <!-- 2 column grid layout for inline styling -->
           <!--<div class="row mb-4">
             <div class="col d-flex justify-content-center">
@@ -50,10 +51,10 @@
             </div>
           </div>-->
           <!-- Submit button -->
-          <p v-if="error && submitting" class="error-message"> Please fill form fields correctly </p>
-          <p v-if="serverErr && submitting" class="error-message"> That user already exists</p>
-          <p v-if="success" class="success-message"> Thanks for joining us! Try to sign in. </p>
-          <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+          <p v-if="error && submitting" class="error-message"> Proszę wypełnić odpowiednio pola formularza! </p>
+          <p v-if="serverErr && submitting" class="error-message"> Taki użytkownik już istnieje.</p>
+          <p v-if="success" class="success-message"> Dziękujemy za dołączone do PicPoster! Możesz się zalogować. </p>
+          <button type="submit" class="btn btn-primary btn-block">Zarejestruj</button>
         </form>
     </div>
 </template>

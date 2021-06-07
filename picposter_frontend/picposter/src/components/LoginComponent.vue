@@ -6,7 +6,7 @@
             <input id="email-input" class="form-control" 
             v-model="username"
             :class="{'has-error' : submitting && invalidUsername}" />
-            <label class="form-label" for="email-input">Username</label>
+            <label class="form-label" for="email-input">Login</label>
           </div>
 
           <!-- Password input -->
@@ -14,12 +14,12 @@
             <input type="password" id="password-input" class="form-control" 
             v-model="password"
             :class="{'has-error' : submitting && invalidPassword}" />
-            <label class="form-label" for="password-input">Password</label>
+            <label class="form-label" for="password-input">Hasło</label>
           </div>
-          <p v-if="error && submitting" class="error-message"> Please fill form fields</p>
-          <p v-if="loginError && submitting" class="error-message">Bad username or password, try again!</p>
+          <p v-if="error && submitting" class="error-message"> Wypełnij wszystkie pola!</p>
+          <p v-if="loginError && submitting" class="error-message"> Zły login lub hasło! Spróbuj ponownie. </p>
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-block">Zaloguj się</button>
         </form>
     </div>
 </template>
