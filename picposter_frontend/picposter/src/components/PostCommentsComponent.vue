@@ -20,11 +20,20 @@ export default {
   props: {
       postId: {
         type: String
+      },
+      isCommentAdded: {
+        type:Boolean
       }
   },
   data(){
     return {
       comments: []
+    }
+  },
+  watch: {
+    'isCommentAdded': function() {
+      this.getPostComments();
+      this.$emit('comment:actualized', null)
     }
   },
   methods:{

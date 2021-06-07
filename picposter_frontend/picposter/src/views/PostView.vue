@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div id="p-comments">
-                    <post-comments-component :postId="post.id" />
+                    <post-comments-component :postId="post.id" :isCommentAdded="isCommentAdded" @comment:actualized="commentActualized"/>
                 </div>
                 <div id="p-comments-bottom-panel">
                     <div id="p-likes">
@@ -53,7 +53,7 @@
                         <span><likes-counter-component :postId="post.id" :isLikesAmountChanged="isLikesAmountChanged"/></span>
                     </div>
                     <div id="p-add-comment">
-                        <add-comment-component :postAllowComments="post.allowComments" />
+                        <add-comment-component :post="post" @comment:added="actualizeComments"/>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,8 @@ export default {
         fetchingStatus: 'fetching',
         isLiked: false,
         isLikesAmountChanged: false,
-        userId: localStorage.getItem('userId') 
+        userId: localStorage.getItem('userId'),
+        isCommentAdded:false
     }
   },
   methods:{
@@ -110,9 +111,18 @@ export default {
         
     },
 
+    actualizeComments(){
+        this.isCommentAdded = true;
+    },
+
+    commentActualized(){
+        this.isCommentAdded = false;
+    },
+
     likeIconClicked(){
       this.isLikesAmountChanged = !this.isLikesAmountChanged;
     },
+
       
     format_date(value){
         if (value) {

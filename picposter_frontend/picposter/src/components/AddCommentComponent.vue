@@ -1,32 +1,83 @@
 <template>
-  <div id="add-comment-container">
-     <form>
-        <input type="text" class="form-control" id="new-comment" placeholder="Dodaj komentarz..." autocomplete="off" maxlength="250">
+  <div>
+     <form @submit.prevent="handleSubmit">
+       <div id="add-comment-container">
+        <input type="text" v-model="comment" :class="{'has-error' : submitting && invalidComment}" class="form-control" id="new-comment" placeholder="Dodaj komentarz..." autocomplete="off" maxlength="250">
+        <button type="submit" class="btn btn-primary" id="new-comment-submit">Dodaj</button>
+       </div>
+        <p v-if="error && submitting" class="error-message">Your comment is empty!</p>
     </form>
-    <button type="submit" class="btn btn-primary" id="new-comment-submit">Dodaj</button>
   </div>
 </template>
 
 <script>
-// import axios from "axios"
-
+import axios from "axios"
 export default {
   name: 'add-comment-component',
   data(){
     return {
+      comment: "",
+      submitting: false,
+      success: false,
+      error: false,
+      postError: false
     }
   },
   props: {
-    postAllowComments: Boolean
+    post: Object
   },
   methods:{
     blockComments(){
-      if(this.postAllowComments == false){
+      if(this.post.allowComments == false){
         document.getElementById("new-comment").disabled=true;
         document.getElementById("new-comment-submit").disabled=true;
       }
+    },
+    handleSubmit(){
+      this.$emit('comment:added', null)
+      this.submitting= true;
+      this.success= false;
+      this.error= false;
+      if(this.invalidComment){
+        this.error = true;
+        return;
+      }
+      console.log(this.post.id + "tu!");
+      axios({
+        method: 'post',
+        headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}, 
+        url: "http://localhost:8090/comments",
+        data:{
+          comment: this.comment,
+          post:{
+            id: this.post.id
+          },
+          commentator:{
+            id: localStorage.getItem('userId')
+          }
+        }
+      })
+      .catch(e => {console.log(e);})
+      .then((response) => {
+          if(response.status == 401){
+            localStorage.removeItem('token')
+            localStorage.removeItem('userId')
+            this.$router.push(this.$route.query.redirect || '/')
+          }
+      })
+      this.comment = '';
+      this.error = false;
+      this.submitting = false;
+      this.success = true;
     }
   },
+
+  computed:{
+    invalidComment(){
+      return this.comment==='';
+    }
+  },
+
   mounted(){
     this.blockComments();  
   }
