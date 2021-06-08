@@ -23,15 +23,12 @@
             </ul> -->
         </div>
         <div v-if="user.id">
-            <form @submit.prevent="handleLogout">
-                <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
-            </form>
             <div id="navbarButtons">
                 <div id="navbarLeftButtons">
-                    <form class="form-inline my-2 my-lg-0">
+                    <!--<form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
                         <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
+                    </form>-->
                 </div>
                 <div id="navbarRightButtons">
                     <router-link :to="{ name: 'AddPostView' }">
@@ -40,6 +37,9 @@
                     <form @submit.prevent="handleLogout">
                         <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
                     </form>
+                    <!--<form @submit.prevent="handleLogout">
+                        <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
+                    </form>-->
                 </div>
                 
             </div>

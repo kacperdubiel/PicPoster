@@ -46,6 +46,7 @@ export default {
           }
         }
       )
+        .catch(() => {localStorage.removeItem('token'); localStorage.removeItem('userId'); this.$router.push(this.$route.query.redirect || '/')  })
         .then(data => {
           this.followedPosts = data.data;
           this.fetchingStatus = "found";
