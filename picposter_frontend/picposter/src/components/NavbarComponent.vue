@@ -26,6 +26,24 @@
             <form @submit.prevent="handleLogout">
                 <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
             </form>
+            <div id="navbarButtons">
+                <div id="navbarLeftButtons">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
+                        <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div id="navbarRightButtons">
+                    <router-link :to="{ name: 'AddPostView' }">
+                        <button class="btn btn-light px-4 mr-3">Dodaj zdjęcie</button>
+                    </router-link>
+                    <form @submit.prevent="handleLogout">
+                        <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
+                    </form>
+                </div>
+                
+            </div>
+            
         </div>
         <div v-if="user.id">
             <router-link :to="{ name: 'ProfileView', params: { userId: user.id } }">
@@ -86,6 +104,22 @@ export default {
 
 <style>
 
+#navbarButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#navbarLeftButtons {
+    display: flex;
+    flex-direction: row;
+}
+
+#navbarRightButtons {
+    display: flex;
+}
+
 #navbar-user-img {
     display: flex;
     justify-content: center;
@@ -103,6 +137,20 @@ export default {
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
+}
+
+@media (max-width: 630px) { 
+    #navbarButtons {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    #navbarRightButtons {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
 </style>

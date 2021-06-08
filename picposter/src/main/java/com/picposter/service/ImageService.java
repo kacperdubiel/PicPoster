@@ -26,28 +26,29 @@ public class ImageService implements ImageServiceAPI {
     }
 
     @Override
-    public boolean saveImage(MultipartFile imageFile) {
+    public String saveImage(MultipartFile imageFile) {
+        String newFilename;
         try {
             if(imageFile == null)
-                return false;
+                return null;
 
             String extension = FilenameUtils.getExtension(imageFile.getOriginalFilename());
             if(extension == null)
-                return false;
+                return null;
             extension = extension.toLowerCase();
 
             if(!extension.equals("jpg") && !extension.equals("jpeg") && !extension.equals("png"))
-                return false;
+                return null;
 
             byte[] bytes = imageFile.getBytes();
-            String newFilename = UUID.randomUUID() + "." + extension;
+            newFilename = UUID.randomUUID() + "." + extension;
             Path path = Paths.get(FILE_DIR + newFilename);
             Files.write(path, bytes);
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-        return true;
+        return newFilename;
     }
 
     @Override

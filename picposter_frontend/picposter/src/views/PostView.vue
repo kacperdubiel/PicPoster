@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import ImageComponent from '../components/ImageComponent.vue'
 import NavbarComponent from '../components/NavbarComponent.vue'
+import ImageComponent from '../components/ImageComponent.vue'
 import LikesCounterComponent from '../components/LikesCounterComponent.vue'
 import LikesIconComponent from '../components/LikesIconComponent.vue'
 import PostCommentsComponent from '../components/PostCommentsComponent.vue'
@@ -134,7 +134,7 @@ export default {
         if(window.history.length > 1)
             this.$router.go(-1);
         else
-            this.$router.push({ name: 'WallView', params: { userId: this.userId } })  // TODO: fix userId hardcoding 
+            this.$router.push({ name: 'WallView' })
     },
 
     redirectIfLogout(){

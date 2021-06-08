@@ -4,6 +4,7 @@ import StartView from '../views/StartView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import WallView from '../views/WallView.vue'
 import PostView from '../views/PostView.vue'
+import AddPostView from '../views/AddPostView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import SearchView from '../views/SearchView.vue'
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/search/:prefix',
     name: 'SearchView',
     component: SearchView
+  },
+  {
+    path: '/addpost',
+    name: 'AddPostView',
+    component: AddPostView
   },
   {
     path: '/:catchAll(.*)',
