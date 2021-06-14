@@ -16,8 +16,7 @@
                         Posty: <posts-counter-component :userId="user.id" />
                     </div>
                     <div>
-                        Obserwujących: <followers-counter-component :userId="user.id" 
-                                                                                :isFollowersAmountChanged="isFollowersAmountChanged"/>
+                        Obserwujących: <followers-counter-component :userId="user.id" />
                     </div>
                     <div>
                         Obserwowani: <followings-counter-component :userId="user.id" />
@@ -65,7 +64,11 @@ export default {
         border-radius: 10px;
         margin-bottom: 20px;
         background-color: white;
-        padding: 0.5%;
+        padding: 15px;
+    }
+
+    #search-result-container:hover {
+        cursor: pointer;
     }
 
     .results{
