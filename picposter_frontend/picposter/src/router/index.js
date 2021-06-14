@@ -5,6 +5,7 @@ import ProfileView from '../views/ProfileView.vue'
 import WallView from '../views/WallView.vue'
 import PostView from '../views/PostView.vue'
 import AddPostView from '../views/AddPostView.vue'
+import AddProfileImageView from '../views/AddProfileImageView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import SearchView from '../views/SearchView.vue'
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/addpost',
     name: 'AddPostView',
     component: AddPostView
+  },
+  {
+    path: '/addprofileimage',
+    name: 'AddProfileImageView',
+    component: AddProfileImageView
   },
   {
     path: '/:catchAll(.*)',

@@ -14,9 +14,17 @@
 
             <div id="profile-container" class="shadow-box" v-else-if="userFetchingStatus === 'found'"> 
                 <div id="pr-top">
-                    <div id="pr-user-img">
+                    <div id="pr-user-img" v-if="user.id !== loggedUserId">
                         <image-component :filename="user.profileImagePath"/>
                     </div>
+                    <router-link :to="{ name: 'AddProfileImageView' }" v-else-if="user.id === loggedUserId" >
+                        <div id="pr-user-img" class="profile-owner">
+                            <image-component :filename="user.profileImagePath"/>
+                            <div id="pr-user-img-overlay">
+                                <i class="fas fa-pencil-alt"></i>
+                            </div>
+                        </div>
+                    </router-link>
                     <div id="pr-user-info">
                         <div id="pr-user-info-top">
                             <div id="pr-user-name">
@@ -105,7 +113,8 @@ export default {
         user: { },
         posts: [],
         isFollowable: "not-followable",
-        isFollowersAmountChanged: false
+        isFollowersAmountChanged: false,
+        loggedUserId: localStorage.getItem('userId')
     }
   },
   methods:{
@@ -278,6 +287,27 @@ export default {
     -webkit-box-shadow: 1px 1px 4px #888888;
     -moz-box-shadow:    1px 1px 4px #888888;
     box-shadow:         1px 1px 4px #888888; 
+}
+
+#pr-user-img-overlay {
+    position: absolute;
+    display: none;
+    color: white;
+    font-size: 50px;
+    text-shadow: 2px 2px 6px #000;
+}
+
+#pr-user-img.profile-owner:hover img {
+    filter: blur(1px);
+    opacity: .9;
+}
+
+#pr-user-img.profile-owner:hover {
+    cursor: pointer;
+}
+
+#pr-user-img.profile-owner:hover #pr-user-img-overlay {
+    display: block;
 }
 
 #pr-user-info {
