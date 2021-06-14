@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarToggler" v-if="user.id">
             <form @submit.prevent="handleSearch" class="form-inline my-2 my-lg-0">
                 <input v-model="searchInput" class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
-                <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-light my-2 my-sm-0" type="submit">Szukaj</button>
             </form>
             <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
