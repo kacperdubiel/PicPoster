@@ -1,7 +1,6 @@
 package com.picposter.service.api;
 
 import com.picposter.domain.Comment;
-import com.picposter.domain.Follow;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,4 +12,5 @@ public interface CommentServiceAPI {
     Comment addComment(Comment comment);
     Comment updateComment(Comment updatedComment);
     boolean deleteCommentById(UUID id);
+    boolean deletePostComments(UUID postId);
 }

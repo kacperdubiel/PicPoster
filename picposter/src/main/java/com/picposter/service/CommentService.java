@@ -90,4 +90,16 @@ public class CommentService implements CommentServiceAPI {
         }
         return false;
     }
+
+    @Override
+    public boolean deletePostComments(UUID postId) {
+        Post post = postDAO.findById(postId).orElse(null);
+        if(post != null) {
+            for (Comment com : post.getComments()) {
+                commentDAO.deleteById(com.getId());
+            }
+            return true;
+        }
+        return false;
+    }
 }

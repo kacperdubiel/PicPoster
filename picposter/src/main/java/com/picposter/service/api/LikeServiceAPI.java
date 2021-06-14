@@ -12,4 +12,5 @@ public interface LikeServiceAPI {
     Like getLikeByLikerAndPost(User liker, Post post);
     Like addLike(Like like);
     boolean deleteLikeById(UUID likeId);
+    boolean deletePostLikes(UUID postId);
 }

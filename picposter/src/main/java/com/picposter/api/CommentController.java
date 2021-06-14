@@ -39,7 +39,16 @@ public class CommentController {
         if(commentsResult == null)
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         else
-            return new ResponseEntity<>(commentsResult, HttpStatus.OK);
+                return new ResponseEntity<>(commentsResult, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "comments/post/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deletePostComments(@PathVariable("id") UUID postId){
+        boolean result  =commentService.deletePostComments(postId);
+        if(!result)
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        else
+            return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @RequestMapping(path = "comments/post/{id}", method = RequestMethod.GET)

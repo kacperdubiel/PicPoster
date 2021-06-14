@@ -61,6 +61,15 @@ public class LikeController {
             return new ResponseEntity<>(likesResult, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "likes/post/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deletePostLikes(@PathVariable("id") UUID postId){
+        boolean result = likeService.deletePostLikes(postId);
+        if(!result)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
     @RequestMapping(path = "likes/user/{userId}/post/{postId}", method = RequestMethod.GET)
     public ResponseEntity<Like> getLikeByLikerAndPost(@PathVariable("userId") UUID userId,
                                                       @PathVariable("postId") UUID postId){

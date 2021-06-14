@@ -40,9 +40,14 @@
                             {{ post.description }}
                         </div>
                         <div id="p-post-date">
-                            {{ format_date(post.addedDate) }}
+                            {{ format_date(post.addedDate)}}
                         </div>
                     </div>
+                </div>
+                <div id="p-back-btn-container" v-if="post.poster.id == userId">
+                    <button class="btn btn-danger" @click="deletePost">
+                            Usuń
+                    </button>
                 </div>
                 <div id="p-comments">
                     <post-comments-component :postId="post.id" :isCommentAdded="isCommentAdded" @comment:actualized="commentActualized"/>
@@ -135,6 +140,37 @@ export default {
             this.$router.go(-1);
         else
             this.$router.push({ name: 'WallView' })
+    },
+
+    deletePost(){
+        axios.delete('http://localhost:8090/comments/post/' + this.postId, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+        })
+        .catch(e => {
+            console.log(e);
+        })
+        .then(() => { axios.delete('http://localhost:8090/likes/post/' + this.postId, {
+                        headers: {
+                             Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
+                    })
+                    .catch(e => console.log(e))
+                    .then(() => {axios.delete('http://localhost:8090/posts/' + this.postId, {
+                                    headers: {
+                                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                                    }
+                                })
+                                .catch(e => console.log(e))
+                                .then(() => {
+                                    this.$router.push(this.$route.query.redirect || '/profile/' + this.userId)
+                                })
+                             }
+                        )})
+        .catch(e => {
+            console.log(e);
+        })
     },
 
     redirectIfLogout(){

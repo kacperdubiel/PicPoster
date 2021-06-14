@@ -71,4 +71,16 @@ public class LikeService implements LikeServiceAPI {
         else
             return false;
     }
+
+    @Override
+    public boolean deletePostLikes(UUID postId) {
+        Post post = postDAO.findById(postId).orElse(null);
+        if(post != null) {
+            for (Like like : post.getLikes()) {
+                likeDAO.deleteById(like.getId());
+            }
+            return true;
+        }
+        return false;
+    }
 }
