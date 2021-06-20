@@ -5,7 +5,7 @@
         <input type="text" v-model="comment" :class="{'has-error' : submitting && invalidComment}" class="form-control" id="new-comment" placeholder="Dodaj komentarz..." autocomplete="off" maxlength="250">
         <button type="submit" class="btn btn-primary" id="new-comment-submit">Dodaj</button>
        </div>
-        <p v-if="error && submitting" class="error-message">Your comment is empty!</p>
+        <p v-if="error && submitting" class="error-message">Twórz komentarz jest pusty!</p>
     </form>
   </div>
 </template>
