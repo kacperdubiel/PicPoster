@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="login-form-container">
         <form @submit.prevent="handleSubmit">
           <!-- Email input -->
           <div class="form-outline mb-4">
@@ -18,8 +18,13 @@
           </div>
           <p v-if="error && submitting" class="error-message"> Wypełnij wszystkie pola!</p>
           <p v-if="loginError && submitting" class="error-message"> Zły login lub hasło! Spróbuj ponownie. </p>
-          <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block">Zaloguj się</button>
+          <div id="spacer">
+
+          </div>
+          <div id="button-container">
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-block">Zaloguj się</button>
+          </div>
         </form>
     </div>
 </template>
@@ -98,4 +103,37 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  #login-form-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+
+  }
+
+#login-form-container form {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+}
+
+#spacer {
+  flex: 1;
+}
+
+#button-container {
+  width: 100%;
+  align-self: flex-end;
+}
+
+#button-container button {
+  color: white;
+  background-color: rgb(207, 25, 231);
+}
+
+#button-container button:hover {
+  background-color: rgb(184, 29, 204);
+}
+
 </style>

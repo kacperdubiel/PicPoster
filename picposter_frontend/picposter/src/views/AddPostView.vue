@@ -30,7 +30,7 @@
                         </label>
                     </div>
                     <div id="ap-submit">
-                        <button type="submit" class="btn btn-primary"
+                        <button type="submit" class="btn"
                             :class="{'btn-secondary disabled disabled-btn' : postFile === ''}">
                             Dodaj zdjęcie
                         </button>
@@ -189,6 +189,15 @@ name: 'AddPostView',
 #ap-submit .btn.disabled-btn {
     cursor: default;
     opacity: .4;
+}
+
+#ap-submit button {
+  color: white;
+  background-color: rgb(207, 25, 231);
+}
+
+#ap-submit button:hover {
+  background-color: rgb(184, 29, 204);
 }
 
 </style>

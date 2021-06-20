@@ -31,7 +31,7 @@
                                 {{ user.login }}
                             </div>
                             <div id="pr-user-follow-btn">
-                                <button class="btn btn-primary"
+                                <button id="followable-btn" class="btn btn-primary"
                                     v-if="isFollowable === 'followable'"
                                     @click="followUser">
                                     Zaobserwuj
@@ -398,6 +398,15 @@ export default {
 #pr-posts-found #grid-img:hover {
     opacity: .95;
     padding: 1px;
+}
+
+#followable-btn {
+  color: white;
+  background-color: rgb(207, 25, 231);
+}
+
+#followable-btn:hover {
+  background-color: rgb(184, 29, 204);
 }
 
 

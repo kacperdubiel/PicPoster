@@ -7,7 +7,13 @@
 <style>
 
 body {
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
+  min-height: 100vh;
+  background: rgb(156,13,176);
+  background: -moz-linear-gradient(0deg, rgba(156,13,176,1) 13%, rgba(17,206,237,1) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(156,13,176,1) 13%, rgba(17,206,237,1) 100%);
+  background: linear-gradient(0deg, rgba(156,13,176,1) 13%, rgba(17,206,237,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9c0db0",endColorstr="#11ceed",GradientType=1);
 }
 
 #app {
@@ -16,6 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   padding-top: 110px;
+  
 }
 
 .shadow-box-sm {

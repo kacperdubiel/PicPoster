@@ -3,7 +3,7 @@
      <form @submit.prevent="handleSubmit">
        <div id="add-comment-container">
         <input type="text" v-model="comment" :class="{'has-error' : submitting && invalidComment}" class="form-control" id="new-comment" placeholder="Dodaj komentarz..." autocomplete="off" maxlength="250">
-        <button type="submit" class="btn btn-primary" id="new-comment-submit">Dodaj</button>
+        <button type="submit" class="btn" id="new-comment-submit">Dodaj</button>
        </div>
         <p v-if="error && submitting" class="error-message">Twórz komentarz jest pusty!</p>
     </form>
@@ -106,4 +106,15 @@ export default {
     padding: 2px 10px;
     height: 38px;
 }
+
+#new-comment-submit {
+  color: white;
+  background-color: rgb(207, 25, 231);
+  margin-left: 10px;
+}
+
+#new-comment-submit:hover {
+  background-color: rgb(184, 29, 204);
+}
+
 </style>

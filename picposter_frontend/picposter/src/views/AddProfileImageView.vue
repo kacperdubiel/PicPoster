@@ -17,7 +17,7 @@
                             accept="image/png, image/jpeg" @change="onFileChange">
                     </div>
                     <div id="pi-submit">
-                        <button type="submit" class="btn btn-primary"
+                        <button type="submit" class="btn"
                             :class="{'btn-secondary disabled disabled-btn' : postFile === ''}">
                             Zapisz zdjęcie
                         </button>
@@ -226,6 +226,15 @@ name: 'AddProfileImageView',
         -moz-box-shadow:    1px 1px 4px #888888;
         box-shadow:         1px 1px 4px #888888; 
     }
+}
+
+#pi-submit button {
+  color: white;
+  background-color: rgb(207, 25, 231);
+}
+
+#pi-submit button:hover {
+  background-color: rgb(184, 29, 204);
 }
 
 </style>

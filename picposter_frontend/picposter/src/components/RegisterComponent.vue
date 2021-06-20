@@ -54,7 +54,7 @@
           <p v-if="error && submitting" class="error-message"> Proszę wypełnić odpowiednio pola formularza! </p>
           <p v-if="serverErr && submitting" class="error-message"> Taki użytkownik już istnieje.</p>
           <p v-if="success" class="success-message"> Dziękujemy za dołączone do PicPoster! Możesz się zalogować. </p>
-          <button type="submit" class="btn btn-primary btn-block">Zarejestruj</button>
+          <button id="register-btn" type="submit" class="btn btn-block">Zarejestruj</button>
         </form>
     </div>
 </template>
@@ -132,4 +132,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+#register-btn {
+  color: white;
+  background-color: rgb(207, 25, 231);
+}
+
+#register-btn:hover {
+  background-color: rgb(184, 29, 204);
+}
+
 </style>

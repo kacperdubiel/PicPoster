@@ -95,4 +95,8 @@ export default {
         -moz-box-shadow:    1px 1px 4px #888888;
         box-shadow:         1px 1px 4px #888888; 
     }
+
+    #pr-user-info-bottom {
+        margin-right: 20px;
+    }
 </style>

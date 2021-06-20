@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar fixed-top navbar-dark bg-info navbar-expand-md">
+    <nav id="page-navbar" class="navbar fixed-top navbar-dark navbar-expand-md">
         <router-link :to="{ name: 'WallView' }">
             <span class="navbar-brand">PicPoster</span>
         </router-link>
@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarToggler" v-if="user.id">
             <form @submit.prevent="handleSearch" class="form-inline my-2 my-lg-0">
                 <input v-model="searchInput" class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
-                <button class="btn btn-light my-2 my-sm-0" type="submit">Szukaj</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Szukaj</button>
             </form>
             <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
@@ -24,18 +24,18 @@
         </div>
         <div v-if="user.id">
             <div id="navbarButtons">
-                <div id="navbarLeftButtons">
-                    <!--<form class="form-inline my-2 my-lg-0">
+                <!-- <div id="navbarLeftButtons">
+                    <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
                         <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                    </form>-->
-                </div>
+                    </form>
+                </div> -->
                 <div id="navbarRightButtons">
                     <router-link :to="{ name: 'AddPostView' }">
-                        <button class="btn btn-light px-4 mr-3">Dodaj zdjęcie</button>
+                        <button class="btn btn-outline-light px-4 mr-3">Dodaj zdjęcie</button>
                     </router-link>
                     <form @submit.prevent="handleLogout">
-                        <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
+                        <button type="submit" class="btn btn-outline-light px-4 mr-3">Wyloguj</button>
                     </form>
                     <!--<form @submit.prevent="handleLogout">
                         <button type="submit" class="btn btn-light px-4 mr-3">Wyloguj</button>
@@ -103,6 +103,9 @@ export default {
 </script>
 
 <style>
+#page-navbar.navbar.fixed-top.navbar-dark.navbar-expand-md {
+    background-color: rgb(67, 158, 185);
+}
 
 #navbarButtons {
     display: flex;
