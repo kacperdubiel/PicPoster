@@ -66,7 +66,7 @@ export default {
   .start-view-container{
     display: flex;
     justify-content: space-evenly;
-    
+    align-items: flex-start;
     width: 1000px;
   }
 
@@ -79,6 +79,9 @@ export default {
     padding: 50px 20px;
     flex-grow: 1;
     margin-right: 70px;
+
+    max-width: 465px;
+    max-height: 380px;
   }
 
   #register-container {
@@ -89,5 +92,7 @@ export default {
     border-radius: 10px;
     padding: 50px 20px;
     flex-grow: 1;
+
+    max-width: 465px;
   }
 </style>
